@@ -15,5 +15,12 @@ public class Huffmankoodi {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        Tiedostonluku lukija = new Tiedostonluku();
+        lukija.load();
     }
+    
+     
+    
+    
 }
