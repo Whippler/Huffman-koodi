@@ -37,4 +37,10 @@ public class Tiedostonluku {
             Logger.getLogger(Tiedostonluku.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public static ArrayList<Byte> getTavut() {
+        return tavut;
+    }
+    
+     
 }
