@@ -38,7 +38,7 @@ public class Tiedostonluku {
         }
     }
 
-    public static ArrayList<Byte> getTavut() {
+    public ArrayList<Byte> getTavut() {
         return tavut;
     }
     
