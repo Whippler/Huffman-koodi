@@ -1,27 +1,53 @@
-
-package huffmankoodi;
+package pakkaus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.PriorityQueue;
+
 /**
  *
  * @author lammenoj
  */
 public class Huffmankoodi {
-    
-    private ArrayList<Byte> tavut;
+
+    private byte[] tavut;
     private HashMap<Byte, Integer> byteCount = new HashMap<Byte, Integer>();
+    private PriorityQueue aakkosto = new PriorityQueue<Node>();
 
     public Huffmankoodi() {
         Tiedostonluku tiedosto = new Tiedostonluku();
-        tiedosto.load();
         tavut = tiedosto.getTavut();
     }
-    
-    private void Count(){
-        for(Byte i: tavut){
-            if (byteCount.containsKey(i)){
-                byteCount.put(i, byteCount.get(i)+1);
+
+    public Node Huffman() {
+        Count();
+        
+        //Luo puut
+        for (byte i : byteCount.keySet()) {
+            Byte test = new Byte(i);
+            System.out.println(test.toString(i) + ": " + byteCount.get(i));  // tulostaa merkkien määrät
+            Node a = new Node(byteCount.get(i), i);
+            aakkosto.add(a);
+        }
+        
+        //Luo Huffman puun
+        while (aakkosto.size()>1) {
+            Node x = (Node)aakkosto.poll();
+            Node y = (Node)aakkosto.poll();
+            Node z = new Node(x.getCount()+y.getCount(), x, y);
+            
+            aakkosto.add(z);
+        }
+        //palauttaa puun juuren
+        return (Node)aakkosto.poll();
+    }
+        /*
+         * Metodi laskee tiedoston tavut
+         */
+    private void Count() {
+        for (Byte i : tavut) {
+            if (byteCount.containsKey(i)) {
+                byteCount.put(i, byteCount.get(i) + 1);
             } else {
                 byteCount.put(i, 1);
             }
