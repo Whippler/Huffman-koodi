@@ -1,6 +1,5 @@
 package pakkaus;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -24,8 +23,7 @@ public class Huffmankoodi {
         
         //Luo puut
         for (byte i : byteCount.keySet()) {
-            Byte test = new Byte(i);
-            System.out.println(test.toString(i) + ": " + byteCount.get(i));  // tulostaa merkkien määrät
+            System.out.println(i + ": " + byteCount.get(i));  // tulostaa merkkien määrät
             Node a = new Node(byteCount.get(i), i);
             aakkosto.add(a);
         }

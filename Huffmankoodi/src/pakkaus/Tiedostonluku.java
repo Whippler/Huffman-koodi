@@ -24,7 +24,7 @@ public class Tiedostonluku {
     private byte[] tavut2;
 
     public Tiedostonluku() {
-        tiedosto = new File("Holmes.txt");
+        tiedosto = new File("testi.txt");
         long pituus = tiedosto.length();
 
         if (pituus > Integer.MAX_VALUE) {
