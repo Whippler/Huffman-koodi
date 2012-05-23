@@ -1,4 +1,4 @@
-package pakkaus;
+package tietorakenteet;
 /**
  * 
  * @author Kalle

@@ -1,15 +1,16 @@
 package pakkaus;
 
-
 import java.io.File;
+import tietorakenteet.Node;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        File tiedosto = new File("Holmes.txt");
+        File tiedosto = new File("testi.txt");
         Tiedostonluku lukija = new Tiedostonluku(tiedosto);
-        Huffmankoodi huffman = new Huffmankoodi(lukija.getTavut());
+        byte[] tavut = lukija.getTavut();
+        Huffmankoodi huffman = new Huffmankoodi(tavut);
         
         Node huffmanTree = huffman.Huffman();
         
