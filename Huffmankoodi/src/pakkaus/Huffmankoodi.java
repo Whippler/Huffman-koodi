@@ -12,12 +12,19 @@ public class Huffmankoodi {
     private byte[] tavut;
     private HashMap<Byte, Integer> byteCount = new HashMap<Byte, Integer>();
     private PriorityQueue aakkosto = new PriorityQueue<Node>();
-
+    private Tiedostonluku tiedosto;
+    
+    /**
+     * 
+     */
     public Huffmankoodi() {
-        Tiedostonluku tiedosto = new Tiedostonluku();
+        tiedosto = new Tiedostonluku();
         tavut = tiedosto.getTavut();
     }
-
+    /**
+     * metodi laskee tiedostolle huffman-puun
+     * @return palauttaa huffman-puun juuren
+     */
     public Node Huffman() {
         Count();
         
@@ -28,7 +35,7 @@ public class Huffmankoodi {
             aakkosto.add(a);
         }
         
-        //Luo Huffman puun
+        //Luo Huffman puun yhdistämällä edellä luodut puut
         while (aakkosto.size()>1) {
             Node x = (Node)aakkosto.poll();
             Node y = (Node)aakkosto.poll();
@@ -39,7 +46,7 @@ public class Huffmankoodi {
         //palauttaa puun juuren
         return (Node)aakkosto.poll();
     }
-        /*
+        /**
          * Metodi laskee tiedoston tavut
          */
     private void Count() {

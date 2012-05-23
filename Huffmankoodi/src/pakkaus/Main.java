@@ -9,10 +9,10 @@ public class Main {
 
         PriorityQueue aakkosto = new PriorityQueue<Node>();
 
-        Huffmankoodi test = new Huffmankoodi();
-        Node HuffmanTree = test.Huffman();
+        Huffmankoodi lukija = new Huffmankoodi();
+        Node huffmanTree = lukija.Huffman();
         
-        System.out.println(HuffmanTree);
+        System.out.println(huffmanTree);
  
     }
 }

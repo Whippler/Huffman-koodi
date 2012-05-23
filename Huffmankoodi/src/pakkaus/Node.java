@@ -1,5 +1,8 @@
 package pakkaus;
-
+/**
+ * 
+ * @author Kalle
+ */
 public class Node implements Comparable{
 
     private Node left;
@@ -7,34 +10,52 @@ public class Node implements Comparable{
     private int count;
     private byte code;
 
+    /**
+     * Konstruktori luo solmun
+     * @param count tavujen määrä
+     * @param left vasen lapsi
+     * @param right oikea lapsi
+     */
     public Node(int count, Node left, Node right) {
         this.count = count;
         this.left = left;
         this.right = right;
     }
-
-    public Node(int value, byte code) {
-        this.count = value;
+    /**
+     * konstruktori luo lehtisolmun
+     * @param value tavujen määrä
+     * @param code tavu
+     */
+    public Node(int count, byte code) {
+        this.count = count;
         this.code = code;
         // left ja right ovat null
     }
-    
-//    public Node(int value) {
-//        this.value = value;
-//    }
-
+    /**
+     * 
+     * @return palauttaa vasemman lapsen
+     */
     public Node getLeft() {
         return left;
     }
-
+    /**
+     * 
+     * @return palauttaa oikean lapsen
+     */
     public Node getRight() {
         return right;
     }
-
+    /**
+     * 
+     * @return palauttaa arvon
+     */
     public int getCount() {
         return count;
     } 
-    
+    /**
+     * 
+     * @return palauttaa tavun
+     */
     public int getCode(){
         return code;
     }
@@ -52,7 +73,7 @@ public class Node implements Comparable{
         else
             r = right.toString();
 
-        return "Node["+count+", "+l+", "+r+"]";
+        return "Node["+count+"|"+code+", "+l+", "+r+"]";
     }
 
     @Override
