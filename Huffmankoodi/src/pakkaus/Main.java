@@ -1,18 +1,19 @@
 package pakkaus;
 
 
-import java.util.PriorityQueue;
+import java.io.File;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        PriorityQueue aakkosto = new PriorityQueue<Node>();
-
-        Huffmankoodi lukija = new Huffmankoodi();
-        Node huffmanTree = lukija.Huffman();
+        File tiedosto = new File("Holmes.txt");
+        Tiedostonluku lukija = new Tiedostonluku(tiedosto);
+        Huffmankoodi huffman = new Huffmankoodi(lukija.getTavut());
+        
+        Node huffmanTree = huffman.Huffman();
         
         System.out.println(huffmanTree);
- 
+        
     }
 }

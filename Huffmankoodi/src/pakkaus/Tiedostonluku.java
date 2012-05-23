@@ -13,21 +13,23 @@ import java.util.logging.Logger;
  */
 public class Tiedostonluku {
 
-    private static File tiedosto;
+    private File tiedosto;
     private byte[] tavut2;
 
-    /**
-     * Konstruktori tarkistaa ettei tiedosto ole liian suuri.
-     */
-    public Tiedostonluku() {
-        tiedosto = new File("testi.txt");
+    public Tiedostonluku(File tiedosto) {
+        this.tiedosto = tiedosto;
+        fileSize();
+    }
+
+    private boolean fileSize() {
         long pituus = tiedosto.length();
 
         if (pituus > Integer.MAX_VALUE) {
-            System.out.println("file too large");
+            return false;
         } else {
             tavut2 = new byte[(int) pituus];
             load();
+            return true;
         }
     }
 
@@ -64,7 +66,7 @@ public class Tiedostonluku {
     }
 
     /**
-     * 
+     *
      * @return Palauttaa tiedoston sisällön tavuina taulukossa.
      */
     public byte[] getTavut() {
