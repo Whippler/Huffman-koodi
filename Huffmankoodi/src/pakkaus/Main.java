@@ -1,6 +1,7 @@
 package pakkaus;
 
 import java.io.File;
+import java.util.HashMap;
 import tietorakenteet.Node;
 
 public class Main {
@@ -16,5 +17,11 @@ public class Main {
         
         System.out.println(huffmanTree);
         
+    }
+    
+    private HashMap sanakirja(){
+        HashMap<Byte, Integer> sanakirja = new HashMap<Byte, Integer>();
+        
+        return sanakirja;
     }
 }

@@ -24,10 +24,6 @@ public class Node implements Comparable {
         this.right = right;
     }
 
-    public Node(int count) {
-        this.count = count;
-    }
-
     /**
      * konstruktori luo lehtisolmun
      *
