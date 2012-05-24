@@ -64,7 +64,7 @@ public class Node implements Comparable {
      *
      * @return palauttaa tavun
      */
-    public int getCode() {
+    public byte getCode() {
         return code;
     }
 
