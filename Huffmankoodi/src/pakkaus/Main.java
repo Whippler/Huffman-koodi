@@ -7,7 +7,7 @@ import tietorakenteet.Node;
 public class Main {
 
     private static HashMap<Byte, String> sanakirja = new HashMap<Byte, String>();
-    private static String filename = "Holmes.txt";
+    private static String filename = "testi.txt";
 
     public static void main(String[] args) {
 
@@ -18,7 +18,6 @@ public class Main {
 
         Node huffmanTree = huffman.Huffman();
 
-        System.out.println(huffmanTree);
         sanakirja(huffmanTree, "");
 
         System.out.println(huffmanTree);
@@ -26,7 +25,9 @@ public class Main {
             System.out.println((char) i + " - " + sanakirja.get(i));
         }
         
-        Tallennus save = new Tallennus(tavut, sanakirja);
+        Tallennus tallennus = new Tallennus(tavut, sanakirja);
+        tallennus.compress();
+        
     }
 
     private static void sanakirja(Node root, String jono) {

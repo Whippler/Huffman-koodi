@@ -28,9 +28,6 @@ public class Huffmankoodi {
     public Node Huffman() {
         Count();
         
-        ArrayList<Integer> values = (ArrayList<Integer>) byteCount.values();
-        Collections.sort(values);
-        
         //Luo puut
         for (byte i : byteCount.keySet()) {
             System.out.println((char)i + ": " + byteCount.get(i));  // tulostaa merkkien määrät
