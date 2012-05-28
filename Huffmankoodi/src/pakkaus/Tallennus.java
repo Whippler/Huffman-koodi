@@ -23,5 +23,6 @@ public class Tallennus {
         for (byte i: tavut){
             sanakirja.get(i);
         }
+        
     }
 }

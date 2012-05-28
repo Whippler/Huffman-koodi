@@ -4,6 +4,7 @@
  */
 package pakkaus;
 
+import java.io.File;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -12,14 +13,20 @@ import static org.junit.Assert.*;
  * @author Kalle
  */
 public class TiedostonlukuTest {
-    
+
+    private File tiedosto;
+    Tiedostonluku lukija;
+
     public TiedostonlukuTest() {
+
     }
-    
+
     @Before
     public void setUp() {
+        tiedosto = new File("testi.txt");
+        lukija = new Tiedostonluku(tiedosto);
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -29,12 +36,9 @@ public class TiedostonlukuTest {
      */
     @Test
     public void testGetTavut() {
-        System.out.println("getTavut");
-        Tiedostonluku instance = null;
-        byte[] expResult = null;
-        byte[] result = instance.getTavut();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        byte[] expResult = {108, 111, 108};
+        byte[] result = lukija.getTavut();
+        for (int i = 0; i<expResult.length;i++)
+        assertEquals(expResult[i], result[i]);
     }
 }

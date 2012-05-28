@@ -18,6 +18,7 @@ public class Main {
 
         Node huffmanTree = huffman.Huffman();
 
+        System.out.println(huffmanTree);
         sanakirja(huffmanTree, "");
 
         System.out.println(huffmanTree);
