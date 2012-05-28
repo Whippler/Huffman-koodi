@@ -47,6 +47,10 @@ public class Huffmankoodi {
         //palauttaa puun juuren
         return (Node) aakkosto.poll();
     }
+    
+    public HashMap<Byte, Integer> getByteCount(){
+        return byteCount;
+    }
 
     /**
      * Metodi laskee tiedoston tavut

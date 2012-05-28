@@ -11,14 +11,16 @@ import java.util.HashMap;
 public class Tallennus {
 
     private HashMap sanakirja;
+    private HashMap bytecount;
     private byte[] tavut;
-    private ArrayList<Byte> compressed = new ArrayList<Byte>();
+    private ArrayList<Byte> compressed = new ArrayList<Byte>(); //pakattu tiedosto
     private File tiedosto;
     private String buffer = "";
 
-    public Tallennus(byte[] tavut, HashMap sanakirja) {
+    public Tallennus(byte[] tavut, HashMap sanakirja, HashMap bytecount) {
         this.tavut = tavut;
         this.sanakirja = sanakirja;
+        this.bytecount = bytecount;
         tiedosto = new File("");
     }
 
@@ -37,6 +39,7 @@ public class Tallennus {
                 buffer = buffer + "0";
             }
             compressed.add((byte) Integer.parseInt(buffer.substring(0, 7), 2));
+            System.out.println(compressed.get(compressed.size()-1));
             buffer = buffer.substring(8);
         }
 

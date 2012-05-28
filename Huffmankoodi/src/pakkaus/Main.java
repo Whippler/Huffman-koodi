@@ -25,7 +25,7 @@ public class Main {
             System.out.println((char) i + " - " + sanakirja.get(i));
         }
         
-        Tallennus tallennus = new Tallennus(tavut, sanakirja);
+        Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount());
         tallennus.compress();
         
     }
