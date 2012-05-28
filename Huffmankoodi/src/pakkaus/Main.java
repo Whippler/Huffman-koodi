@@ -7,13 +7,14 @@ import tietorakenteet.Node;
 public class Main {
 
     private static HashMap<Byte, String> sanakirja = new HashMap<Byte, String>();
-    private static String filename = "testi.txt";
+    private static String filename = "Holmes.txt";
 
     public static void main(String[] args) {
 
         File tiedosto = new File(filename);
         Tiedostonluku lukija = new Tiedostonluku(tiedosto);
         byte[] tavut = lukija.getTavut();
+        System.out.println("alkuperäinen pituus: " + tavut.length);
         Huffmankoodi huffman = new Huffmankoodi(tavut);
 
         Node huffmanTree = huffman.Huffman();

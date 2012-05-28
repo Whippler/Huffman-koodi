@@ -42,6 +42,7 @@ public class Tallennus {
             System.out.println(compressed.get(compressed.size()-1));
             buffer = buffer.substring(8);
         }
+        System.out.println("pakattu pituus: " + compressed.size());
 
     }
     
