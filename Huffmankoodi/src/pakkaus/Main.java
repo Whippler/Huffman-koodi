@@ -17,17 +17,16 @@ public class Main {
         File tiedosto = new File(filename);
         Tiedostonluku lukija = new Tiedostonluku(tiedosto);
         byte[] tavut = lukija.getTavut();
-        System.out.println("alkuperäinen pituus: " + tavut.length);
         Huffmankoodi huffman = new Huffmankoodi(tavut);
 
         Node huffmanTree = huffman.Huffman();
 
         sanakirja(huffmanTree, "");
 
-        System.out.println(huffmanTree);
-        for (byte i : sanakirja.keySet()) {
+//        System.out.println(huffmanTree);
+//        for (byte i : sanakirja.keySet()) {
 //            System.out.println((char) i + " - " + sanakirja.get(i));
-        }
+//        }
         
         Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount());
         
