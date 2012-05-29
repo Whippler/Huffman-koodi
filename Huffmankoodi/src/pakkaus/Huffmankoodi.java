@@ -16,8 +16,12 @@ public class Huffmankoodi {
     private HashMap<Byte, Integer> byteCount = new HashMap<Byte, Integer>();
     private PriorityQueue aakkosto = new PriorityQueue<Node>();
 
+    public Huffmankoodi() {
+    }
+
     public Huffmankoodi(byte[] tavut) {
         this.tavut = tavut;
+        Count();
     }
 
     /**
@@ -26,12 +30,15 @@ public class Huffmankoodi {
      * @return palauttaa huffman-puun juuren
      */
     public Node Huffman() {
-        Count();
-        
+        return Huffman(this.byteCount);
+    }
+
+    public Node Huffman(HashMap<Byte, Integer> byteCount) {
+
         //Luo puut
         for (byte i : byteCount.keySet()) {
 //            System.out.println((char)i + ": " + byteCount.get(i));  // tulostaa merkkien määrät
-            
+
             Node a = new Node(byteCount.get(i), i);
             aakkosto.add(a);
         }
@@ -47,8 +54,8 @@ public class Huffmankoodi {
         //palauttaa puun juuren
         return (Node) aakkosto.poll();
     }
-    
-    public HashMap<Byte, Integer> getByteCount(){
+
+    public HashMap<Byte, Integer> getByteCount() {
         return byteCount;
     }
 
