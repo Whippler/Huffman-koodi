@@ -5,8 +5,10 @@
 package pakkaus;
 
 import java.io.File;
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  *

@@ -1,7 +1,10 @@
 package pakkaus;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tietorakenteet.Node;
 
 public class Main {
@@ -23,11 +26,16 @@ public class Main {
 
         System.out.println(huffmanTree);
         for (byte i : sanakirja.keySet()) {
-            System.out.println((char) i + " - " + sanakirja.get(i));
+//            System.out.println((char) i + " - " + sanakirja.get(i));
         }
         
         Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount());
-        tallennus.compress();
+        
+        try {
+            tallennus.compress();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
