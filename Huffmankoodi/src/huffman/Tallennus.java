@@ -1,26 +1,26 @@
 package huffman;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Luokka tallentaa pakatun tiedoston
  * @author lammenoj
  */
 public class Tallennus {
 
     private HashMap sanakirja;
-    private HashMap<Byte, Integer> byteCount;
+    private TreeMap<Byte, Integer> byteCount;
     private byte[] tavut;
     private String buffer = "";
     private File tiedosto;
     private FileOutputStream output;
     private DataOutputStream dataStream;
 
-    public Tallennus(byte[] tavut, HashMap sanakirja, HashMap bytecount) {
+    public Tallennus(byte[] tavut, HashMap sanakirja, TreeMap bytecount) {
         this.tavut = tavut;
         this.sanakirja = sanakirja;
         this.byteCount = bytecount;
@@ -38,11 +38,14 @@ public class Tallennus {
         }
         dataStream = new DataOutputStream(output);
     }
-
+    
+    /**
+     * Metodi tallentaa merkkien määrät pakattuun tiedostoon
+     * @throws IOException 
+     */
     private void saveCount() throws IOException {
 
         dataStream.writeInt(byteCount.size());
-        System.out.println(byteCount.size());
 
         for (byte i : byteCount.keySet()) {
             dataStream.write(i);
@@ -50,7 +53,10 @@ public class Tallennus {
 
         }
     }
-
+    /**
+     * Metodi tallentaa tiedoston sisällön pakattuun tiedostoon
+     * @throws IOException 
+     */
     public void compress() throws IOException {
 
         saveCount();

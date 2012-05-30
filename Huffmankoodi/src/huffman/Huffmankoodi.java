@@ -1,9 +1,7 @@
 package huffman;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.TreeMap;
 import tietorakenteet.Node;
 
 /**
@@ -13,7 +11,7 @@ import tietorakenteet.Node;
 public class Huffmankoodi {
 
     private byte[] tavut;
-    private HashMap<Byte, Integer> byteCount = new HashMap<Byte, Integer>();
+    private TreeMap<Byte, Integer> byteCount = new TreeMap<Byte, Integer>();
     private PriorityQueue aakkosto = new PriorityQueue<Node>();
 
     public Huffmankoodi() {
@@ -32,12 +30,17 @@ public class Huffmankoodi {
     public Node Huffman() {
         return Huffman(this.byteCount);
     }
-
-    public Node Huffman(HashMap<Byte, Integer> byteCount) {
+    
+    /**
+     * Metodi rakentaa huffman-puun merkkien määristä
+     * @param byteCount metodi saa parametrina merkkien määrät
+     * @return palauttaa Huffman-puun juuren
+     */
+    public Node Huffman(TreeMap<Byte, Integer> byteCount) {
 
         //Luo puut
         for (byte i : byteCount.keySet()) {
-            System.out.println((char)i + ": " + byteCount.get(i));  // tulostaa merkkien määrät
+//            System.out.println((char)i + ": " + byteCount.get(i));  // tulostaa merkkien määrät
 
             Node a = new Node(byteCount.get(i), i);
             aakkosto.add(a);
@@ -55,7 +58,11 @@ public class Huffmankoodi {
         return (Node) aakkosto.poll();
     }
 
-    public HashMap<Byte, Integer> getByteCount() {
+    /**
+     * Metodi palauttaa merkkien määrät
+     * @return 
+     */
+    public TreeMap<Byte, Integer> getByteCount() {
         return byteCount;
     }
 

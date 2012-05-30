@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Luokka lukee tiedoston pakkaamista varten
  * @author lammenoj
  */
 public class Tiedostonluku {

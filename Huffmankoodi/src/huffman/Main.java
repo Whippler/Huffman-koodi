@@ -14,6 +14,7 @@ public class Main {
     private static String filename = "Holmes.txt";
 
     public static void main(String[] args) {
+        
         System.out.println("PAKKAAMINEN");
         pakkaaja();
         System.out.println( "\n" + "PURKAMINEN");
@@ -22,6 +23,9 @@ public class Main {
     }
 
     private static void pakkaaja() {
+        
+        // Lukee pakattavan tiedoston
+        //----------------------------------------------------------------------
         
         File tiedosto = new File(filename);
         Tiedostonluku lukija = new Tiedostonluku(tiedosto);
@@ -33,10 +37,9 @@ public class Main {
         sanakirja(huffmanTree, "");
 
         System.out.println(huffmanTree);  // tulostaa huffmanpuun pakkaus vaiheessa
-//        for (byte i : sanakirja.keySet()) {
-//            System.out.println((char) i + " - " + sanakirja.get(i));
-//        }
-
+        
+        // tallentaa pakatun tiedoston
+        //----------------------------------------------------------------------
         Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount());
 
         try {
