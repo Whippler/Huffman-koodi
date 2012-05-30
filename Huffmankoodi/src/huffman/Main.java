@@ -1,6 +1,7 @@
-package pakkaus;
+package huffman;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -13,7 +14,15 @@ public class Main {
     private static String filename = "Holmes.txt";
 
     public static void main(String[] args) {
+        System.out.println("PAKKAAMINEN");
+        pakkaaja();
+        System.out.println( "\n" + "PURKAMINEN");
+        purkaja();
 
+    }
+
+    private static void pakkaaja() {
+        
         File tiedosto = new File(filename);
         Tiedostonluku lukija = new Tiedostonluku(tiedosto);
         byte[] tavut = lukija.getTavut();
@@ -23,21 +32,25 @@ public class Main {
 
         sanakirja(huffmanTree, "");
 
-//        System.out.println(huffmanTree);
+        System.out.println(huffmanTree);  // tulostaa huffmanpuun pakkaus vaiheessa
 //        for (byte i : sanakirja.keySet()) {
 //            System.out.println((char) i + " - " + sanakirja.get(i));
 //        }
-        
+
         Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount());
-        
+
         try {
             tallennus.compress();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }
 
+    }
+    /**
+     * Metodi rakentaa sanakirjan hufman puusta
+     * @param root Huffman-puun juuri
+     * @param jono rekursio rakentaa bittijonon tähän olioon
+     */
     private static void sanakirja(Node root, String jono) {
 
         if (root.getLeft() != null) {
@@ -52,6 +65,18 @@ public class Main {
 
         if (root.getLeft() == null && root.getRight() == null) {
             sanakirja.put(root.getCode(), jono);
+        }
+    }
+
+    private static void purkaja() {
+
+        File tiedosto = new File("pakattu.dat");
+        try {
+            Purkaja purkaja = new Purkaja(tiedosto);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

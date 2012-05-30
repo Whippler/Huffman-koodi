@@ -4,6 +4,7 @@
  */
 package pakkaus;
 
+import huffman.Huffmankoodi;
 import org.junit.*;
 import static org.junit.Assert.*;
 import tietorakenteet.Node;

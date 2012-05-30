@@ -1,11 +1,10 @@
-package purku;
+package huffman;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pakkaus.Huffmankoodi;
 import tietorakenteet.Node;
 
 /**
@@ -26,8 +25,8 @@ public class Purkaja {
         fileStream = new FileInputStream(tiedosto);
         dataStream = new DataInputStream(fileStream);
         loadTree();
-        loadFile();
-        save();
+//        loadFile();
+//        save();
     }
 
     private void loadTree() throws IOException {

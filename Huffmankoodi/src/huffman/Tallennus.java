@@ -1,4 +1,4 @@
-package pakkaus;
+package huffman;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class Tallennus {
         this.tavut = tavut;
         this.sanakirja = sanakirja;
         this.byteCount = bytecount;
-        
+
         tiedosto = new File("pakattu.dat");
         try {
             tiedosto.createNewFile();
@@ -37,6 +37,18 @@ public class Tallennus {
             Logger.getLogger(Tallennus.class.getName()).log(Level.SEVERE, null, ex);
         }
         dataStream = new DataOutputStream(output);
+    }
+
+    private void saveCount() throws IOException {
+
+        dataStream.writeInt(byteCount.size());
+        System.out.println(byteCount.size());
+
+        for (byte i : byteCount.keySet()) {
+            dataStream.write(i);
+            dataStream.writeInt(byteCount.get(i));
+
+        }
     }
 
     public void compress() throws IOException {
@@ -60,16 +72,5 @@ public class Tallennus {
         }
         dataStream.close();
 
-    }
-
-    private void saveCount() throws IOException {
-
-        dataStream.writeInt(byteCount.size());
-
-        for (byte i : byteCount.keySet()) {
-            dataStream.write(i);
-            dataStream.writeInt(byteCount.get(i));
-
-        }
     }
 }

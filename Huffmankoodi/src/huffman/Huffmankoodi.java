@@ -1,4 +1,4 @@
-package pakkaus;
+package huffman;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class Huffmankoodi {
 
         //Luo puut
         for (byte i : byteCount.keySet()) {
-//            System.out.println((char)i + ": " + byteCount.get(i));  // tulostaa merkkien määrät
+            System.out.println((char)i + ": " + byteCount.get(i));  // tulostaa merkkien määrät
 
             Node a = new Node(byteCount.get(i), i);
             aakkosto.add(a);

@@ -4,6 +4,7 @@
  */
 package pakkaus;
 
+import huffman.Tiedostonluku;
 import java.io.File;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
