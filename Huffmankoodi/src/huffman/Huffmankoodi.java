@@ -37,6 +37,10 @@ public class Huffmankoodi {
      * @return palauttaa Huffman-puun juuren
      */
     public Node Huffman(TreeMap<Byte, Integer> byteCount) {
+        
+//        for(byte i:byteCount.keySet()){
+//            System.out.println(i);
+//        }
 
         //Luo puut
         for (byte i : byteCount.keySet()) {
@@ -71,11 +75,13 @@ public class Huffmankoodi {
      */
     private void Count() {
         for (Byte i : tavut) {
+            System.out.println(i);
             if (byteCount.containsKey(i)) {
                 byteCount.put(i, byteCount.get(i) + 1);
             } else {
                 byteCount.put(i, 1);
             }
         }
+        byteCount.put((byte)-128, 1);
     }
 }

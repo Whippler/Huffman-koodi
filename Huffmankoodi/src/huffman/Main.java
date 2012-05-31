@@ -11,7 +11,7 @@ import tietorakenteet.Node;
 public class Main {
 
     private static HashMap<Byte, String> sanakirja = new HashMap<Byte, String>();
-    private static String filename = "Holmes.txt";
+    private static String filename = "testi.txt";
 
     public static void main(String[] args) {
         
@@ -43,6 +43,7 @@ public class Main {
         Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount());
 
         try {
+            System.out.println("pakataan");
             tallennus.compress();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

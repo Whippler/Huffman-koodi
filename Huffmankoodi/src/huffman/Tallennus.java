@@ -58,12 +58,17 @@ public class Tallennus {
      * @throws IOException 
      */
     public void compress() throws IOException {
-
+//        System.out.println("aloitetetiin kirjoitus");
         saveCount();
+//        System.out.println("tavuja yhteensä: " + tavut.length);
         for (byte i : tavut) {
             buffer = buffer + sanakirja.get(i);
+//            System.out.println("bufferin sisältö: " + buffer);
             while (buffer.length() > 7) {
-                dataStream.write(Integer.parseInt(buffer.substring(0, 7), 2));
+                System.out.println(buffer.substring(0, 8));
+                byte kirjoita = (byte) Integer.parseInt(buffer.substring(0, 8), 2);
+                dataStream.write(kirjoita);
+//                System.out.println("kirjoitettiin: " + kirjoita);
                 dataStream.flush();
                 buffer = buffer.substring(8);
             }
@@ -71,10 +76,16 @@ public class Tallennus {
         if (!buffer.isEmpty()) {
             while (buffer.length() < 8) {
                 buffer = buffer + "0";
+
             }
-            dataStream.write(Integer.parseInt(buffer.substring(0, 7), 2));
+
+            String kirjoitetaan = buffer.substring(0,8);
+            byte kirj = (byte) Integer.parseInt(kirjoitetaan, 2);
+            dataStream.write(kirj);
+//            System.out.println(Integer.toBinaryString(Integer.parseInt(buffer.substring(0,8),2)));
             dataStream.flush();
             buffer = buffer.substring(8);
+//            System.out.println("bufferin sisältö: " +buffer);
         }
         dataStream.close();
 
