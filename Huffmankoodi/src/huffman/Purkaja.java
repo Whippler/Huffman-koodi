@@ -26,7 +26,7 @@ public class Purkaja {
         dataStream = new DataInputStream(fileStream);
         loadTree();
         loadFile();
-//        save();
+        save();
     }
 
     /**
@@ -63,16 +63,16 @@ public class Purkaja {
             if (!buffer.isEmpty() && buffer.charAt(0) == '0' && search.getRight() != null) {
                 search = search.getRight();
                 buffer = buffer.substring(1);
-                System.out.print("R ");
+//                System.out.print("R ");
             }
             if (!buffer.isEmpty() && buffer.charAt(0) == '1' && search.getLeft() != null) {
                 search = search.getLeft();
                 buffer = buffer.substring(1);
-                System.out.print("L ");
+//                System.out.print("L ");
             }
             
             if (search.getLeft() == null && search.getRight() == null) {
-                System.out.println("lehti: " + (char)search.getCode());
+//                System.out.println("lehti: " + (char)search.getCode());
                 if (search.getCode()==(byte)-128) break outerloop;
                 purettu.add(search.getCode());
                 search = HuffmanTree;
@@ -80,11 +80,13 @@ public class Purkaja {
             
             //Lukee dataSreamiä
             if (buffer.length()<2 && dataStream.available() > 0) {
-                byte tavu;
-                tavu = dataStream.readByte();
-                System.out.println("tavu luettu: " + restoreZeros(Integer.toBinaryString(tavu)));
-                buffer = buffer + restoreZeros(Integer.toBinaryString(tavu));
-                System.out.println("bufferi: " + buffer);
+                byte tavu = dataStream.readByte();
+                String binary = Integer.toBinaryString(tavu);
+                
+//                System.out.println("tavu luettu: " + binary);
+                if(binary.length()>8) binary = binary.substring(binary.length()-8);
+                buffer = buffer + restoreZeros(binary);
+//                System.out.println("bufferi: " + buffer);
             }
             
         } //while(!buffer.isEmpty());

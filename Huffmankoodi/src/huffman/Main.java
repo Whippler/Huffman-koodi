@@ -11,7 +11,7 @@ import tietorakenteet.Node;
 public class Main {
 
     private static HashMap<Byte, String> sanakirja = new HashMap<Byte, String>();
-    private static String filename = "testi.txt";
+    private static String filename = "Holmes.txt";
 
     public static void main(String[] args) {
         
