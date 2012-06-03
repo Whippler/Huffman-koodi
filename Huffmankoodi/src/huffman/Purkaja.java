@@ -25,7 +25,7 @@ public class Purkaja {
         fileStream = new FileInputStream(tiedosto);
         dataStream = new DataInputStream(fileStream);
         loadTree();
-//        loadFile();
+        loadFile();
 //        save();
     }
 
@@ -42,11 +42,10 @@ public class Purkaja {
             int lkm = dataStream.readInt();
 
             byteCount.put(tavu, lkm);
-            System.out.println("tavu: " + (char) tavu + " ja määrä: " + lkm + " bittijonona:  "+ Integer.toBinaryString(tavu));
         }
         Huffmankoodi treeBuilder = new Huffmankoodi();
         HuffmanTree = treeBuilder.Huffman(byteCount);
-        
+
         System.out.println(HuffmanTree); // tulostaa reconstruoidun huffman-puun
     }
 
@@ -58,43 +57,37 @@ public class Purkaja {
     private void loadFile() throws IOException {
         String buffer = "";
         Node search = HuffmanTree;
+        outerloop:
+        while(true) {
 
-        while (true) {
-
-            if (buffer.length() < 1) {
-                byte[] tavut = new byte[4];
-                int tavuja = dataStream.read(tavut);
-                System.out.println("tavuja luettu: " + tavuja);
-                
-                for (int i = 0; i < tavut.length; i++) {
-                    buffer = buffer + Integer.toBinaryString(tavut[i]);
-                    System.out.println("tavun sisältö on: " + Integer.toBinaryString(tavut[i]));
-                }
-
-                
-                
-//                System.out.println("bufferin sisältö: "+  buffer);
-            }
-
-            if (buffer.charAt(0) == '0' && search.getRight() != null) {
+            if (!buffer.isEmpty() && buffer.charAt(0) == '0' && search.getRight() != null) {
                 search = search.getRight();
-//                System.out.print(search);
                 buffer = buffer.substring(1);
-//                 System.out.println("bufferin sisältö: "+ buffer);
-            } else if (buffer.charAt(0) == '1' && search.getLeft() != null) {
-
+                System.out.print("R ");
+            }
+            if (!buffer.isEmpty() && buffer.charAt(0) == '1' && search.getLeft() != null) {
                 search = search.getLeft();
-//                System.out.print(search);
                 buffer = buffer.substring(1);
-//                                 System.out.println("bufferin sisältö: "+ buffer);
-            } 
+                System.out.print("L ");
+            }
+            
             if (search.getLeft() == null && search.getRight() == null) {
-                System.out.println("lehti");
-                if (search.getCode() == -128) break;
+                System.out.println("lehti: " + (char)search.getCode());
+                if (search.getCode()==(byte)-128) break outerloop;
                 purettu.add(search.getCode());
                 search = HuffmanTree;
             }
-        }
+            
+            //Lukee dataSreamiä
+            if (buffer.length()<2 && dataStream.available() > 0) {
+                byte tavu;
+                tavu = dataStream.readByte();
+                System.out.println("tavu luettu: " + restoreZeros(Integer.toBinaryString(tavu)));
+                buffer = buffer + restoreZeros(Integer.toBinaryString(tavu));
+                System.out.println("bufferi: " + buffer);
+            }
+            
+        } //while(!buffer.isEmpty());
 
     }
 
@@ -119,5 +112,14 @@ public class Purkaja {
             streamData.flush();
         }
         streamData.close();
+    }
+
+    private String restoreZeros(String tavu) {
+
+        while (0 != 8 - tavu.length()) {
+            tavu = "0" + tavu;
+        }
+        return tavu;
+
     }
 }

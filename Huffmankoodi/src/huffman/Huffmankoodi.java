@@ -75,7 +75,6 @@ public class Huffmankoodi {
      */
     private void Count() {
         for (Byte i : tavut) {
-            System.out.println(i);
             if (byteCount.containsKey(i)) {
                 byteCount.put(i, byteCount.get(i) + 1);
             } else {

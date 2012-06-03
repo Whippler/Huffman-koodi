@@ -22,7 +22,7 @@ public class Tiedostonluku {
     }
 
     private boolean fileSize() {
-        long pituus = tiedosto.length();
+        long pituus = tiedosto.length() + 1;
 
         if (pituus > Integer.MAX_VALUE) {
             return false;

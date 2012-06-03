@@ -45,11 +45,12 @@ public class Tallennus {
      */
     private void saveCount() throws IOException {
 
-        dataStream.writeInt(byteCount.size());
+        dataStream.writeInt(byteCount.size()); // kirjoittaa merkkien määrän
+        System.out.println("merkkien määrä: " + byteCount.size());
 
         for (byte i : byteCount.keySet()) {
-            dataStream.write(i);
-            dataStream.writeInt(byteCount.get(i));
+            dataStream.write(i);                    // kirjoittaa merkin
+            dataStream.writeInt(byteCount.get(i));  // kirjoittaa merkin määrän
 
         }
     }
@@ -58,34 +59,30 @@ public class Tallennus {
      * @throws IOException 
      */
     public void compress() throws IOException {
-//        System.out.println("aloitetetiin kirjoitus");
         saveCount();
-//        System.out.println("tavuja yhteensä: " + tavut.length);
+        
+        tavut[tavut.length-1] = (byte)-128;
         for (byte i : tavut) {
             buffer = buffer + sanakirja.get(i);
 //            System.out.println("bufferin sisältö: " + buffer);
             while (buffer.length() > 7) {
-                System.out.println(buffer.substring(0, 8));
+//                System.out.println(buffer.substring(0, 8) + " - " + Integer.parseInt(buffer.substring(0, 8), 2) + "("+(char)Integer.parseInt(buffer.substring(0, 8), 2) +")"+ " - " + Integer.toBinaryString(Integer.parseInt(buffer.substring(0, 8), 2)));
                 byte kirjoita = (byte) Integer.parseInt(buffer.substring(0, 8), 2);
                 dataStream.write(kirjoita);
-//                System.out.println("kirjoitettiin: " + kirjoita);
                 dataStream.flush();
                 buffer = buffer.substring(8);
             }
         }
+        // kun tiedoston on käytyläpi lisätään täyte bittejä
         if (!buffer.isEmpty()) {
             while (buffer.length() < 8) {
                 buffer = buffer + "0";
-
             }
-
             String kirjoitetaan = buffer.substring(0,8);
             byte kirj = (byte) Integer.parseInt(kirjoitetaan, 2);
             dataStream.write(kirj);
-//            System.out.println(Integer.toBinaryString(Integer.parseInt(buffer.substring(0,8),2)));
             dataStream.flush();
             buffer = buffer.substring(8);
-//            System.out.println("bufferin sisältö: " +buffer);
         }
         dataStream.close();
 
