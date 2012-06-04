@@ -20,13 +20,19 @@ public class Purkaja {
     private Node HuffmanTree;
     private ArrayList<Byte> purettu = new ArrayList<Byte>();
 
-    public Purkaja(File tiedosto) throws FileNotFoundException, IOException {
+    public Purkaja(File tiedosto, String fileName) throws FileNotFoundException, IOException {
 
         fileStream = new FileInputStream(tiedosto);
         dataStream = new DataInputStream(fileStream);
         loadTree();
+        long currentTimeMillis = System.currentTimeMillis();
         loadFile();
-        save();
+        System.out.print("tiedoston luku ja kääntäminen: ");
+        System.out.println(System.currentTimeMillis() - currentTimeMillis + "ms");
+        currentTimeMillis = System.currentTimeMillis();
+        save(fileName);
+        System.out.print("tallennus: ");
+        System.out.println(System.currentTimeMillis() - currentTimeMillis + "ms");
     }
 
     /**
@@ -35,8 +41,8 @@ public class Purkaja {
      * @throws IOException
      */
     private void loadTree() throws IOException {
+
         int count = dataStream.readInt();
-        System.out.println(count);
         for (int i = 0; i < count; i++) {
             byte tavu = (byte) dataStream.read();
             int lkm = dataStream.readInt();
@@ -45,8 +51,6 @@ public class Purkaja {
         }
         Huffmankoodi treeBuilder = new Huffmankoodi();
         HuffmanTree = treeBuilder.Huffman(byteCount);
-
-        System.out.println(HuffmanTree); // tulostaa reconstruoidun huffman-puun
     }
 
     /**
@@ -57,8 +61,9 @@ public class Purkaja {
     private void loadFile() throws IOException {
         String buffer = "";
         Node search = HuffmanTree;
+
         outerloop:
-        while(true) {
+        while (true) {
 
             if (!buffer.isEmpty() && buffer.charAt(0) == '0' && search.getRight() != null) {
                 search = search.getRight();
@@ -70,25 +75,29 @@ public class Purkaja {
                 buffer = buffer.substring(1);
 //                System.out.print("L ");
             }
-            
+
             if (search.getLeft() == null && search.getRight() == null) {
 //                System.out.println("lehti: " + (char)search.getCode());
-                if (search.getCode()==(byte)-128) break outerloop;
+                if (search.getCode() == (byte) -128) {
+                    break outerloop;
+                }
                 purettu.add(search.getCode());
                 search = HuffmanTree;
             }
-            
+
             //Lukee dataSreamiä
-            if (buffer.length()<2 && dataStream.available() > 0) {
+            if (buffer.length() < 2 && dataStream.available() > 0) {
                 byte tavu = dataStream.readByte();
                 String binary = Integer.toBinaryString(tavu);
-                
+
 //                System.out.println("tavu luettu: " + binary);
-                if(binary.length()>8) binary = binary.substring(binary.length()-8);
+                if (binary.length() > 8) {
+                    binary = binary.substring(binary.length() - 8);
+                }
                 buffer = buffer + restoreZeros(binary);
 //                System.out.println("bufferi: " + buffer);
             }
-            
+
         } //while(!buffer.isEmpty());
 
     }
@@ -98,9 +107,9 @@ public class Purkaja {
      *
      * @throws IOException
      */
-    private void save() throws IOException {
+    private void save(String fileName) throws IOException {
 
-        File target = new File("purettu.txt");
+        File target = new File(fileName + ".txt");
         try {
             target.createNewFile();
         } catch (IOException ex) {

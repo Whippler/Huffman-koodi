@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 /**
  * Luokka lukee tiedoston pakkaamista varten
+ *
  * @author lammenoj
  */
 public class Tiedostonluku {
@@ -28,7 +29,14 @@ public class Tiedostonluku {
             return false;
         } else {
             tavut2 = new byte[(int) pituus];
-            load();
+            
+            try {
+                load();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Tiedostonluku.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Tiedostonluku.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return true;
         }
     }
@@ -36,33 +44,15 @@ public class Tiedostonluku {
     /**
      * Metodi lukee pakattavan tiedoston
      */
-    private void load() {
-        FileInputStream lukija = null;
+    private void load() throws FileNotFoundException, IOException {
+        FileInputStream lukija = new FileInputStream(tiedosto);
+        int offset = 0;
+        int numRead = 0;
 
-        try {
-
-            lukija = new FileInputStream(tiedosto);
-            int offset = 0;
-            int numRead = 0;
-
-            try {
-                while (offset < tavut2.length
-                        && (numRead = lukija.read(tavut2, offset, tavut2.length - offset)) >= 0) {
-                    offset += numRead;
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Tiedostonluku.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Tiedostonluku.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                lukija.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Tiedostonluku.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        while (offset < tavut2.length && (numRead = lukija.read(tavut2, offset, tavut2.length - offset)) >= 0) {
+            offset += numRead;
         }
+        lukija.close();
     }
 
     /**

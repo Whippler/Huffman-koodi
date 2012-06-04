@@ -12,46 +12,52 @@ public class Main {
 
     private static HashMap<Byte, String> sanakirja = new HashMap<Byte, String>();
     private static String filename = "Holmes.txt";
+    private static String filename2 = "pakattu";
+    private static String filename3 = "purettu";
 
     public static void main(String[] args) {
-        
-        System.out.println("PAKKAAMINEN");
-        pakkaaja();
-        System.out.println( "\n" + "PURKAMINEN");
-        purkaja();
 
+//        String toiminto = args[0];
+        if (args[0].equals("0")) {
+            System.out.println("PAKKAAMINEN");
+            filename = args[1];
+            filename2 = args[2];
+            pakkaaja();
+        } else {
+            System.out.println("\n" + "PURKAMINEN");
+            filename2 = args[1];
+            filename3 = args[2];
+            purkaja();
+        }
     }
 
     private static void pakkaaja() {
-        
         // Lukee pakattavan tiedoston
         //----------------------------------------------------------------------
-        
+
         File tiedosto = new File(filename);
         Tiedostonluku lukija = new Tiedostonluku(tiedosto);
         byte[] tavut = lukija.getTavut();
         Huffmankoodi huffman = new Huffmankoodi(tavut);
-
         Node huffmanTree = huffman.Huffman();
-
         sanakirja(huffmanTree, "");
 
-        System.out.println(huffmanTree);  // tulostaa huffmanpuun pakkaus vaiheessa
-        
+
         // tallentaa pakatun tiedoston
         //----------------------------------------------------------------------
-        Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount());
+        Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount(), filename2);
 
         try {
-            System.out.println("pakataan");
             tallennus.compress();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+
     /**
      * Metodi rakentaa sanakirjan hufman puusta
+     *
      * @param root Huffman-puun juuri
      * @param jono rekursio rakentaa bittijonon tähän olioon
      */
@@ -74,9 +80,9 @@ public class Main {
 
     private static void purkaja() {
 
-        File tiedosto = new File("pakattu.dat");
+        File tiedosto = new File(filename2 + ".dat");
         try {
-            Purkaja purkaja = new Purkaja(tiedosto);
+            Purkaja purkaja = new Purkaja(tiedosto, filename3);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

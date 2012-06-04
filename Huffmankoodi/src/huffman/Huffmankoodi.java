@@ -37,15 +37,9 @@ public class Huffmankoodi {
      * @return palauttaa Huffman-puun juuren
      */
     public Node Huffman(TreeMap<Byte, Integer> byteCount) {
-        
-//        for(byte i:byteCount.keySet()){
-//            System.out.println(i);
-//        }
-
+        long currentTimeMillis = System.currentTimeMillis();
         //Luo puut
         for (byte i : byteCount.keySet()) {
-//            System.out.println((char)i + ": " + byteCount.get(i));  // tulostaa merkkien määrät
-
             Node a = new Node(byteCount.get(i), i);
             aakkosto.add(a);
         }
@@ -55,10 +49,11 @@ public class Huffmankoodi {
             Node x = (Node) aakkosto.poll();
             Node y = (Node) aakkosto.poll();
             Node z = new Node(x.getCount() + y.getCount(), x, y);
-
             aakkosto.add(z);
         }
         //palauttaa puun juuren
+        System.out.print("huffman-puun luonti: ");
+        System.out.println(System.currentTimeMillis() - currentTimeMillis + "ms");
         return (Node) aakkosto.poll();
     }
 
@@ -74,6 +69,8 @@ public class Huffmankoodi {
      * Metodi laskee tiedoston tavut
      */
     private void Count() {
+        long currentTimeMillis = System.currentTimeMillis();
+        
         for (Byte i : tavut) {
             if (byteCount.containsKey(i)) {
                 byteCount.put(i, byteCount.get(i) + 1);
@@ -82,5 +79,8 @@ public class Huffmankoodi {
             }
         }
         byteCount.put((byte)-128, 1);
+        
+        System.out.print("merkkien määrän laskenta: ");
+        System.out.println(System.currentTimeMillis() - currentTimeMillis + "ms");
     }
 }

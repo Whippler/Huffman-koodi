@@ -20,12 +20,12 @@ public class Tallennus {
     private FileOutputStream output;
     private DataOutputStream dataStream;
 
-    public Tallennus(byte[] tavut, HashMap sanakirja, TreeMap bytecount) {
+    public Tallennus(byte[] tavut, HashMap sanakirja, TreeMap bytecount, String fileName) {
         this.tavut = tavut;
         this.sanakirja = sanakirja;
         this.byteCount = bytecount;
 
-        tiedosto = new File("pakattu.dat");
+        tiedosto = new File(fileName + ".dat");
         try {
             tiedosto.createNewFile();
         } catch (IOException ex) {
@@ -46,12 +46,10 @@ public class Tallennus {
     private void saveCount() throws IOException {
 
         dataStream.writeInt(byteCount.size()); // kirjoittaa merkkien määrän
-        System.out.println("merkkien määrä: " + byteCount.size());
 
         for (byte i : byteCount.keySet()) {
             dataStream.write(i);                    // kirjoittaa merkin
             dataStream.writeInt(byteCount.get(i));  // kirjoittaa merkin määrän
-
         }
     }
     /**
@@ -64,9 +62,7 @@ public class Tallennus {
         tavut[tavut.length-1] = (byte)-128;
         for (byte i : tavut) {
             buffer = buffer + sanakirja.get(i);
-//            System.out.println("bufferin sisältö: " + buffer);
             while (buffer.length() > 7) {
-//                System.out.println(buffer.substring(0, 8) + " - " + Integer.parseInt(buffer.substring(0, 8), 2) + "("+(char)Integer.parseInt(buffer.substring(0, 8), 2) +")"+ " - " + Integer.toBinaryString(Integer.parseInt(buffer.substring(0, 8), 2)));
                 byte kirjoita = (byte) Integer.parseInt(buffer.substring(0, 8), 2);
                 dataStream.write(kirjoita);
                 dataStream.flush();
