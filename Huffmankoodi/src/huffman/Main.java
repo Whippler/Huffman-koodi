@@ -1,8 +1,6 @@
 package huffman;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +14,13 @@ public class Main {
     private static String filename3 = "purettu";
 
     public static void main(String[] args) {
+        try {
+            createFile();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 //        String toiminto = args[0];
         if (args[0].equals("0")) {
@@ -87,6 +92,16 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void createFile() throws FileNotFoundException, IOException {
+        File tied = new File("singlechar.txt");
+        tied.createNewFile();
+        FileOutputStream output = new FileOutputStream(tied);
+        DataOutputStream dataStream = new DataOutputStream(output);
+        for (int i = 0; i<200;i++){
+            dataStream.writeChars("moi");
         }
     }
 }
