@@ -30,10 +30,6 @@ public class TiedostonlukuTest {
         lukija = new Tiedostonluku(tiedosto);
     }
 
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of getTavut method, of class Tiedostonluku.
      */

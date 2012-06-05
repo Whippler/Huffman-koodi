@@ -109,7 +109,7 @@ public class Purkaja {
      */
     private void save(String fileName) throws IOException {
 
-        File target = new File(fileName + ".txt");
+        File target = new File(fileName);
         try {
             target.createNewFile();
         } catch (IOException ex) {

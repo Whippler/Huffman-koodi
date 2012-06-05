@@ -25,7 +25,7 @@ public class Tallennus {
         this.sanakirja = sanakirja;
         this.byteCount = bytecount;
 
-        tiedosto = new File(fileName + ".dat");
+        tiedosto = new File(fileName);
         try {
             tiedosto.createNewFile();
         } catch (IOException ex) {
