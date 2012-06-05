@@ -5,7 +5,7 @@ import java.util.TreeMap;
 import tietorakenteet.Node;
 
 /**
- *
+ * Luokka toteuttaa Huffman puun muodostamisen
  * @author lammenoj
  */
 public class Huffmankoodi {
@@ -14,9 +14,16 @@ public class Huffmankoodi {
     private TreeMap<Byte, Integer> byteCount = new TreeMap<Byte, Integer>();
     private PriorityQueue aakkosto = new PriorityQueue<Node>();
 
+    /**
+     * parametritön construcktori, käytetään tiedoston purku vaiheessa, kun merkkien määriä ei tarvitse laskea.
+     */
     public Huffmankoodi() {
     }
 
+    /**
+     * 
+     * @param tavut Taulukko tiedoston kaikista tavuista
+     */
     public Huffmankoodi(byte[] tavut) {
         this.tavut = tavut;
         Count();

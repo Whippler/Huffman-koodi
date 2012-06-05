@@ -20,6 +20,13 @@ public class Tallennus {
     private FileOutputStream output;
     private DataOutputStream dataStream;
 
+    /**
+     * 
+     * @param tavut Tiedoston sisältö
+     * @param sanakirja eri tavujen bittijono vastaavuudet
+     * @param bytecount merkkien määrät
+     * @param fileName tiedostonimi johon pakataan
+     */
     public Tallennus(byte[] tavut, HashMap sanakirja, TreeMap bytecount, String fileName) {
         this.tavut = tavut;
         this.sanakirja = sanakirja;

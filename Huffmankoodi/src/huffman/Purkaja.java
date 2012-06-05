@@ -9,7 +9,6 @@ import tietorakenteet.Node;
 
 /**
  * Luokka purkaa pakatun tiedoston
- *
  * @author lammenoj
  */
 public class Purkaja {
@@ -20,6 +19,13 @@ public class Purkaja {
     private Node HuffmanTree;
     private ArrayList<Byte> purettu = new ArrayList<Byte>();
 
+    /**
+     * 
+     * @param tiedosto Purettava tiedosto
+     * @param fileName Tiedostonimi mihin tiedosto puretaan
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public Purkaja(File tiedosto, String fileName) throws FileNotFoundException, IOException {
 
         fileStream = new FileInputStream(tiedosto);
@@ -36,7 +42,7 @@ public class Purkaja {
     }
 
     /**
-     * Metodi lataa pakatusta tiedostosta huffman-puun
+     * Metodi lukee pakatusta tiedostosta merkkien määrät ja laskee niistä huffmanpuun
      *
      * @throws IOException
      */
@@ -54,7 +60,7 @@ public class Purkaja {
     }
 
     /**
-     * Metodi lataa pakatusta tiedostosta alkup. tiedoston sisällön
+     * Metodi lataa pakatusta tiedostosta alkuperäisen tiedoston sisällön
      *
      * @throws IOException
      */
@@ -124,7 +130,13 @@ public class Purkaja {
         }
         streamData.close();
     }
-
+    
+    
+    /**
+     * Metodi palauttaa tavun alkuun nollat kun ne on leikattu lukuvaiheessa pois.
+     * @param tavu 
+     * @return 
+     */
     private String restoreZeros(String tavu) {
 
         while (0 != 8 - tavu.length()) {

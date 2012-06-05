@@ -17,11 +17,19 @@ public class Tiedostonluku {
     private File tiedosto;
     private byte[] tavut2;
 
+    /**
+     * 
+     * @param tiedosto Luettava tiedosto olio
+     */
     public Tiedostonluku(File tiedosto) {
         this.tiedosto = tiedosto;
         fileSize();
     }
 
+    /**
+     * Metodi tarkistaa ettei tiedosto ole liian iso
+     * @return 
+     */
     private boolean fileSize() {
         long pituus = tiedosto.length() + 1;
 
