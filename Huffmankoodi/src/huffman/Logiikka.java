@@ -10,17 +10,21 @@ import tietorakenteet.Node;
 
 /**
  * Toteuttaa ohjelman pää luokan
+ *
  * @author lammenoj
  */
 public class Logiikka {
 
     private static HashMap<Byte, String> sanakirja = new HashMap<Byte, String>();
-    private static String filename = "Holmes.txt";
-    private static String filename2 = "pakattu";
-    private static String filename3 = "purettu";
+    private static String filename;
+    private static String filename2;
+    private static String filename3;
 
     public static void main(String[] args) {
-
+        args = new String[3];
+        args[0] = "0";
+        args[1] = "6char.txt";
+        args[2] = "6charPakattu.dat";
 //        String toiminto = args[0];
         if (args[0].equals("0")) {
             System.out.println("PAKKAAMINEN");
@@ -34,7 +38,7 @@ public class Logiikka {
             purkaja();
         }
     }
-    
+
     /**
      * Suorittaa tiedoston lukemisen pakkaamisen ja tallentamisen
      */
@@ -52,6 +56,7 @@ public class Logiikka {
 
         // tallentaa pakatun tiedoston
         //----------------------------------------------------------------------
+        long currentTimeMillis = System.currentTimeMillis();
         Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount(), filename2);
 
         try {
@@ -59,6 +64,8 @@ public class Logiikka {
         } catch (IOException ex) {
             Logger.getLogger(Logiikka.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.print("Tallennus: ");
+        System.out.println(System.currentTimeMillis()-currentTimeMillis + "ms");
 
     }
 
@@ -86,7 +93,7 @@ public class Logiikka {
     }
 
     /**
-     * Metodi suorittaa pakatun tiedoston 
+     * Metodi suorittaa pakatun tiedoston
      */
     private static void purkaja() {
 
