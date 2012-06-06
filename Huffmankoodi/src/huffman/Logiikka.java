@@ -21,10 +21,10 @@ public class Logiikka {
     private static String filename3;
 
     public static void main(String[] args) {
-        args = new String[3];
-        args[0] = "0";
-        args[1] = "6char.txt";
-        args[2] = "6charPakattu.dat";
+//        args = new String[3];
+//        args[0] = "0";
+//        args[1] = "6char.txt";
+//        args[2] = "6charPakattu.dat";
 //        String toiminto = args[0];
         if (args[0].equals("0")) {
             System.out.println("PAKKAAMINEN");
