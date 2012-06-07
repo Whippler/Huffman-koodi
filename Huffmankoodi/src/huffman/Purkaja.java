@@ -9,6 +9,7 @@ import tietorakenteet.Node;
 
 /**
  * Luokka purkaa pakatun tiedoston
+ *
  * @author lammenoj
  */
 public class Purkaja {
@@ -20,21 +21,23 @@ public class Purkaja {
     private ArrayList<Byte> purettu = new ArrayList<Byte>();
 
     /**
-     * 
+     *
      * @param tiedosto Purettava tiedosto
      * @param fileName Tiedostonimi mihin tiedosto puretaan
      * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws IOException
      */
     public Purkaja(File tiedosto, String fileName) throws FileNotFoundException, IOException {
 
         fileStream = new FileInputStream(tiedosto);
         dataStream = new DataInputStream(fileStream);
-        loadTree();
+
         long currentTimeMillis = System.currentTimeMillis();
+        loadTree();
         loadFile();
         System.out.print("tiedoston luku ja kääntäminen: ");
         System.out.println(System.currentTimeMillis() - currentTimeMillis + "ms");
+
         currentTimeMillis = System.currentTimeMillis();
         save(fileName);
         System.out.print("tallennus: ");
@@ -42,7 +45,8 @@ public class Purkaja {
     }
 
     /**
-     * Metodi lukee pakatusta tiedostosta merkkien määrät ja laskee niistä huffmanpuun
+     * Metodi lukee pakatusta tiedostosta merkkien määrät ja laskee niistä
+     * huffmanpuun
      *
      * @throws IOException
      */
@@ -130,12 +134,13 @@ public class Purkaja {
         }
         streamData.close();
     }
-    
-    
+
     /**
-     * Metodi palauttaa tavun alkuun nollat kun ne on leikattu lukuvaiheessa pois.
-     * @param tavu 
-     * @return 
+     * Metodi palauttaa tavun alkuun nollat kun ne on leikattu lukuvaiheessa
+     * pois.
+     *
+     * @param tavu
+     * @return
      */
     private String restoreZeros(String tavu) {
 
@@ -143,6 +148,5 @@ public class Purkaja {
             tavu = "0" + tavu;
         }
         return tavu;
-
     }
 }

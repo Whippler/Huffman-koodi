@@ -16,26 +16,31 @@ import tietorakenteet.Node;
 public class Logiikka {
 
     private static HashMap<Byte, String> sanakirja = new HashMap<Byte, String>();
-    private static String filename;
-    private static String filename2;
-    private static String filename3;
+    private static String syote;
+    private static String kohde;
 
     public static void main(String[] args) {
-//        args = new String[3];
-//        args[0] = "0";
-//        args[1] = "6char.txt";
-//        args[2] = "6charPakattu.dat";
-//        String toiminto = args[0];
-        if (args[0].equals("0")) {
-            System.out.println("PAKKAAMINEN");
-            filename = args[1];
-            filename2 = args[2];
-            pakkaaja();
+//        args = new String[2];
+//        args[0] = "1char.txt";
+//        args[1] = "1charPakattu.dat";
+
+        if (args.length == 2) {
+
+            if (args[0].substring(args[0].length() - 4).equals(".txt")) {
+                System.out.println("PAKKAAMINEN");
+                syote = args[0];
+                kohde = args[1];
+                pakkaaja();
+            } else if (args[0].substring(args[0].length() - 4).equals(".dat")) {
+                System.out.println("\n" + "PURKAMINEN");
+                syote = args[0];
+                kohde = args[1];
+                purkaja();
+            } else {
+                System.out.println("Virheellinen syöte!");
+            }
         } else {
-            System.out.println("\n" + "PURKAMINEN");
-            filename2 = args[1];
-            filename3 = args[2];
-            purkaja();
+            System.out.println("Virheellinen syöte!");
         }
     }
 
@@ -46,7 +51,7 @@ public class Logiikka {
         // Lukee pakattavan tiedoston
         //----------------------------------------------------------------------
 
-        File tiedosto = new File(filename);
+        File tiedosto = new File(syote);
         Tiedostonluku lukija = new Tiedostonluku(tiedosto);
         byte[] tavut = lukija.getTavut();
         Huffmankoodi huffman = new Huffmankoodi(tavut);
@@ -57,7 +62,7 @@ public class Logiikka {
         // tallentaa pakatun tiedoston
         //----------------------------------------------------------------------
         long currentTimeMillis = System.currentTimeMillis();
-        Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount(), filename2);
+        Tallennus tallennus = new Tallennus(tavut, sanakirja, huffman.getByteCount(), kohde);
 
         try {
             tallennus.compress();
@@ -65,7 +70,7 @@ public class Logiikka {
             Logger.getLogger(Logiikka.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.print("Tallennus: ");
-        System.out.println(System.currentTimeMillis()-currentTimeMillis + "ms");
+        System.out.println(System.currentTimeMillis() - currentTimeMillis + "ms");
 
     }
 
@@ -97,9 +102,9 @@ public class Logiikka {
      */
     private static void purkaja() {
 
-        File tiedosto = new File(filename2);
+        File tiedosto = new File(syote);
         try {
-            Purkaja purkaja = new Purkaja(tiedosto, filename3);
+            Purkaja purkaja = new Purkaja(tiedosto, kohde);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Logiikka.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

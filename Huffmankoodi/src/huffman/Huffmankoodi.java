@@ -15,7 +15,7 @@ public class Huffmankoodi {
     private PriorityQueue aakkosto = new PriorityQueue<Node>();
 
     /**
-     * parametritön construcktori, käytetään tiedoston purku vaiheessa, kun merkkien määriä ei tarvitse laskea.
+     * parametritön construktori, käytetään tiedoston purku vaiheessa, kun merkkien määriä ei tarvitse laskea.
      */
     public Huffmankoodi() {
     }
