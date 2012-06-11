@@ -1,7 +1,7 @@
 package huffman;
 
-import java.util.PriorityQueue;
 import java.util.TreeMap;
+import tietorakenteet.MinimiKeko;
 import tietorakenteet.Node;
 
 /**
@@ -12,7 +12,7 @@ public class Huffmankoodi {
 
     private byte[] tavut;
     private TreeMap<Byte, Integer> byteCount = new TreeMap<Byte, Integer>();
-    private PriorityQueue aakkosto = new PriorityQueue<Node>();
+    private MinimiKeko aakkosto = new MinimiKeko(256);
 
     /**
      * parametritön construktori, käytetään tiedoston purku vaiheessa, kun merkkien määriä ei tarvitse laskea.

@@ -1,7 +1,6 @@
 package huffman;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,7 +11,7 @@ import java.util.logging.Logger;
  */
 public class Tallennus {
 
-    private HashMap sanakirja;
+    private TreeMap sanakirja;
     private TreeMap<Byte, Integer> byteCount;
     private byte[] tavut;
     private String buffer = "";
@@ -27,7 +26,7 @@ public class Tallennus {
      * @param bytecount merkkien määrät
      * @param fileName tiedostonimi johon pakataan
      */
-    public Tallennus(byte[] tavut, HashMap sanakirja, TreeMap bytecount, String fileName) {
+    public Tallennus(byte[] tavut, TreeMap sanakirja, TreeMap bytecount, String fileName) {
         this.tavut = tavut;
         this.sanakirja = sanakirja;
         this.byteCount = bytecount;

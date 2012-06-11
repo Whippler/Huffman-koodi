@@ -3,7 +3,7 @@ package huffman;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tietorakenteet.Node;
@@ -15,14 +15,14 @@ import tietorakenteet.Node;
  */
 public class Logiikka {
 
-    private static HashMap<Byte, String> sanakirja = new HashMap<Byte, String>();
+    private static TreeMap<Byte, String> sanakirja = new TreeMap<Byte, String>();
     private static String syote;
     private static String kohde;
 
     public static void main(String[] args) {
-//        args = new String[2];
-//        args[0] = "1char.txt";
-//        args[1] = "1charPakattu.dat";
+//        args = new String[2];              //Testausta varten
+//        args[0] = "Holmes.txt";
+//        args[1] = "holmesPakattu.dat";
 
         if (args.length == 2) {
 
