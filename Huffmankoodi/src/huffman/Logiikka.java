@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tietorakenteet.Node;
+import tietorakenteet.HuffmanNode;
 
 /**
  * Toteuttaa ohjelman pää luokan
@@ -55,7 +55,7 @@ public class Logiikka {
         Tiedostonluku lukija = new Tiedostonluku(tiedosto);
         byte[] tavut = lukija.getTavut();
         Huffmankoodi huffman = new Huffmankoodi(tavut);
-        Node huffmanTree = huffman.Huffman();
+        HuffmanNode huffmanTree = huffman.Huffman();
         sanakirja(huffmanTree, "");
 
 
@@ -80,7 +80,7 @@ public class Logiikka {
      * @param root Huffman-puun juuri
      * @param jono rekursio rakentaa bittijonon tähän olioon
      */
-    private static void sanakirja(Node root, String jono) {
+    private static void sanakirja(HuffmanNode root, String jono) {
 
         if (root.getLeft() != null) {
             sanakirja(root.getLeft(), jono = jono + "1");

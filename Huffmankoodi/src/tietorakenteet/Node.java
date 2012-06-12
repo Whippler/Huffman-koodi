@@ -1,100 +1,85 @@
 package tietorakenteet;
 
-/**
- *
- * @author Kalle
- */
-public class Node implements Comparable {
+public class Node {
 
-    private Node left;
+    private Node left; 
     private Node right;
-    private int count;
-    private byte code;
+    private Node parent;
+    private int height;
+    private byte key;   
+    private Object value; 
 
-    /**
-     * Konstruktori luo solmun
-     *
-     * @param count tavujen määrä
-     * @param left vasen lapsi
-     * @param right oikea lapsi
-     */
-    public Node(int count, Node left, Node right) {
-        this.count = count;
+    public Node(byte key, Object value, Node left, Node right) {
+        this.key = key;
+        this.value = value;
         this.left = left;
         this.right = right;
     }
 
-    /**
-     * konstruktori luo lehtisolmun
-     *
-     * @param value tavujen määrä
-     * @param code tavu
-     */
-    public Node(int count, byte code) {
-        this.count = count;
-        this.code = code;
+    public Node(byte key, Object value) {
+        this.key = key;
+        this.value = value;
         // left ja right ovat null
     }
 
-    /**
-     *
-     * @return palauttaa vasemman lapsen
-     */
     public Node getLeft() {
         return left;
     }
 
-    /**
-     *
-     * @return palauttaa oikean lapsen
-     */
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public void setRight(Node right) {
+        this.right = right;
+    }
+
     public Node getRight() {
         return right;
     }
-
-    /**
-     *
-     * @return palauttaa arvon
-     */
-    public int getCount() {
-        return count;
+    
+    public void setParent(Node parent){
+        this.parent = parent;
+    }
+    
+    public Node getParent(){
+        return parent;
     }
 
-    /**
-     *
-     * @return palauttaa tavun
-     */
-    public byte getCode() {
-        return code;
+    public Object getValue() {
+        return value;
+    }
+    
+    public int getHeight(){
+        return height;
+    }
+    
+    public void setHeight(int korkeus){
+        this.height = korkeus;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    public byte getKey() {
+        return key;
     }
 
     public String toString() {
         String l, r;
-
-        if (left == null) {
+        
+        if (left == null)
             l = "null";
-        } else {
+        else
             l = left.toString();
-        }
 
-        if (right == null) {
+        if (right == null)
             r = "null";
-        } else {
+        else
             r = right.toString();
-        }
 
-        return "Node[" + count + "|" + code + ", " + l + ", " + r + "]";
+        return "Node["+key+","+value+", "+l+", "+r+"]";
     }
 
-    @Override
-    public int compareTo(Object t) {
-
-        if (this.count < ((Node) t).count) {
-            return -1;
-        } else if (this.count > ((Node) t).count) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
 }

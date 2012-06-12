@@ -2,7 +2,7 @@ package huffman;
 
 import java.util.TreeMap;
 import tietorakenteet.MinimiKeko;
-import tietorakenteet.Node;
+import tietorakenteet.HuffmanNode;
 
 /**
  * Luokka toteuttaa Huffman puun muodostamisen
@@ -34,7 +34,7 @@ public class Huffmankoodi {
      *
      * @return palauttaa huffman-puun juuren
      */
-    public Node Huffman() {
+    public HuffmanNode Huffman() {
         return Huffman(this.byteCount);
     }
     
@@ -43,25 +43,25 @@ public class Huffmankoodi {
      * @param byteCount metodi saa parametrina merkkien määrät
      * @return palauttaa Huffman-puun juuren
      */
-    public Node Huffman(TreeMap<Byte, Integer> byteCount) {
+    public HuffmanNode Huffman(TreeMap<Byte, Integer> byteCount) {
         long currentTimeMillis = System.currentTimeMillis();
         //Luo puut
         for (byte i : byteCount.keySet()) {
-            Node a = new Node(byteCount.get(i), i);
+            HuffmanNode a = new HuffmanNode(byteCount.get(i), i);
             aakkosto.add(a);
         }
 
         //Luo Huffman puun yhdistämällä edellä luodut puut
         while (aakkosto.size() > 1) {
-            Node x = (Node) aakkosto.poll();
-            Node y = (Node) aakkosto.poll();
-            Node z = new Node(x.getCount() + y.getCount(), x, y);
+            HuffmanNode x = (HuffmanNode) aakkosto.poll();
+            HuffmanNode y = (HuffmanNode) aakkosto.poll();
+            HuffmanNode z = new HuffmanNode(x.getCount() + y.getCount(), x, y);
             aakkosto.add(z);
         }
         //palauttaa puun juuren
         System.out.print("huffman-puun luonti: ");
         System.out.println(System.currentTimeMillis() - currentTimeMillis + "ms");
-        return (Node) aakkosto.poll();
+        return (HuffmanNode) aakkosto.poll();
     }
 
     /**

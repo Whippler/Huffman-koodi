@@ -12,20 +12,20 @@ import org.junit.Test;
  *
  * @author Kalle
  */
-public class NodeTest {
+public class HuffmanNodeTest {
 
-    private Node node1;
-    private Node node2;
-    private Node root;
+    private HuffmanNode node1;
+    private HuffmanNode node2;
+    private HuffmanNode root;
 
-    public NodeTest() {
+    public HuffmanNodeTest() {
     }
 
     @Before
     public void setUp() {
-        node1 = new Node(4, (byte) 'f');
-        node2 = new Node(2, (byte) 'u');
-        root = new Node(6, node1, node2);
+        node1 = new HuffmanNode(4, (byte) 'f');
+        node2 = new HuffmanNode(2, (byte) 'u');
+        root = new HuffmanNode(6, node1, node2);
     }
 
     /**
@@ -33,8 +33,8 @@ public class NodeTest {
      */
     @Test
     public void testGetLeft() {
-        Node expResult = node1;
-        Node result = root.getLeft();
+        HuffmanNode expResult = node1;
+        HuffmanNode result = root.getLeft();
         assertEquals(expResult.getCode(), result.getCode());
         assertEquals(expResult.getCount(), result.getCount());
     }
@@ -44,8 +44,8 @@ public class NodeTest {
      */
     @Test
     public void testGetRight() {
-        Node expResult = node2;
-        Node result = root.getRight();
+        HuffmanNode expResult = node2;
+        HuffmanNode result = root.getRight();
         assertEquals(expResult.getCode(), result.getCode());
         assertEquals(expResult.getCount(), result.getCount());
     }

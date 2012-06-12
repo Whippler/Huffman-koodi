@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tietorakenteet.Node;
+import tietorakenteet.HuffmanNode;
 
 /**
  * Luokka purkaa pakatun tiedoston
@@ -17,7 +17,7 @@ public class Purkaja {
     private FileInputStream fileStream;
     private DataInputStream dataStream;
     private TreeMap<Byte, Integer> byteCount = new TreeMap<Byte, Integer>();
-    private Node HuffmanTree;
+    private HuffmanNode HuffmanTree;
     private ArrayList<Byte> purettu = new ArrayList<Byte>();
 
     /**
@@ -70,7 +70,7 @@ public class Purkaja {
      */
     private void loadFile() throws IOException {
         String buffer = "";
-        Node search = HuffmanTree;
+        HuffmanNode search = HuffmanTree;
 
         outerloop:
         while (true) {

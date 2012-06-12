@@ -6,7 +6,7 @@ package tietorakenteet;
  */
 public class MinimiKeko {
 
-    private Node[] keko;
+    private HuffmanNode[] keko;
     private int heapSize;
     
     /**
@@ -14,7 +14,7 @@ public class MinimiKeko {
      * @param koko 
      */
     public MinimiKeko(int koko) {
-        keko = new Node[koko];
+        keko = new HuffmanNode[koko];
     }
     
     /**
@@ -75,7 +75,7 @@ public class MinimiKeko {
             }
 
             if (keko[i].compareTo(keko[pienin]) < 0) {
-                Node apu = keko[i];
+                HuffmanNode apu = keko[i];
                 keko[i] = keko[pienin];
                 keko[pienin] = apu;
                 heapify(pienin);
@@ -89,14 +89,14 @@ public class MinimiKeko {
                 pienin = oikea;
             }
 
-            Node apu = keko[i];
+            HuffmanNode apu = keko[i];
             keko[i] = keko[pienin];
             keko[pienin] = apu;
 
         } else if (vasen <= heapSize){ 
             
             if (keko[i].compareTo(keko[left(i)]) > 0) {
-            Node apu = keko[i];
+            HuffmanNode apu = keko[i];
             keko[i] = keko[left(i)];
             keko[left(i)] = apu;
             }
@@ -107,8 +107,8 @@ public class MinimiKeko {
      * 
      * @return palauttaa pienimmän alkion ja poistaa sen
      */
-    public Node poll() {
-        Node min = keko[1];
+    public HuffmanNode poll() {
+        HuffmanNode min = keko[1];
         keko[1] = keko[heapSize];
         heapSize = heapSize - 1;
         heapify(1);
@@ -118,7 +118,7 @@ public class MinimiKeko {
      * lisää kekoon alkion k
      * @param k 
      */
-    public void add(Node k){
+    public void add(HuffmanNode k){
         heapSize = heapSize+1;
         int i = heapSize;
         while (i>1 && k.compareTo(keko[parent(i)]) < 0){

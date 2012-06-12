@@ -18,8 +18,8 @@ public class MinimiKekoTest {
     @Before
     public void setUp() {
         keko = new MinimiKeko(10);
-        Node node1 = new Node(6, (byte) 'g');
-        Node node2 = new Node(3, (byte) 'h');
+        HuffmanNode node1 = new HuffmanNode(6, (byte) 'g');
+        HuffmanNode node2 = new HuffmanNode(3, (byte) 'h');
         keko.add(node2);
         keko.add(node1);
     }
@@ -29,8 +29,8 @@ public class MinimiKekoTest {
      */
     @Test
     public void testPoll() {
-        Node expResult = new Node(3, (byte) 'h');
-        Node result = keko.poll();
+        HuffmanNode expResult = new HuffmanNode(3, (byte) 'h');
+        HuffmanNode result = keko.poll();
         assertEquals(expResult.getCode(), result.getCode());
         assertEquals(expResult.getCount(), result.getCount());
     }
@@ -41,9 +41,9 @@ public class MinimiKekoTest {
     @Test
     public void testAdd() {
 
-        Node expResult = new Node(1, (byte) 'h');
+        HuffmanNode expResult = new HuffmanNode(1, (byte) 'h');
         keko.add(expResult);
-        Node result = keko.poll();
+        HuffmanNode result = keko.poll();
         assertEquals(expResult.getCode(), result.getCode());
         assertEquals(expResult.getCount(), result.getCount());
     }
@@ -53,7 +53,7 @@ public class MinimiKekoTest {
      */
     @Test
     public void testSize() {
-        keko.add(new Node(1, (byte) '3'));
+        keko.add(new HuffmanNode(1, (byte) '3'));
         int expResult = 3;
         int result = keko.size();
         assertEquals(expResult, result);
