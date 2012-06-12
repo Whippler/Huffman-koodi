@@ -4,7 +4,7 @@
  */
 package tietorakenteet;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,12 +13,19 @@ import org.junit.Test;
  * @author Kalle
  */
 public class NodeTest {
-    
+
+    private Node node1;
+    private Node node2;
+    private Node root;
+
     public NodeTest() {
     }
-    
+
     @Before
     public void setUp() {
+        node1 = new Node(4, (byte) 'f');
+        node2 = new Node(2, (byte) 'u');
+        root = new Node(6, node1, node2);
     }
 
     /**
@@ -26,13 +33,10 @@ public class NodeTest {
      */
     @Test
     public void testGetLeft() {
-        System.out.println("getLeft");
-        Node instance = null;
-        Node expResult = null;
-        Node result = instance.getLeft();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Node expResult = node1;
+        Node result = root.getLeft();
+        assertEquals(expResult.getCode(), result.getCode());
+        assertEquals(expResult.getCount(), result.getCount());
     }
 
     /**
@@ -40,13 +44,10 @@ public class NodeTest {
      */
     @Test
     public void testGetRight() {
-        System.out.println("getRight");
-        Node instance = null;
-        Node expResult = null;
-        Node result = instance.getRight();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Node expResult = node2;
+        Node result = root.getRight();
+        assertEquals(expResult.getCode(), result.getCode());
+        assertEquals(expResult.getCount(), result.getCount());
     }
 
     /**
@@ -54,13 +55,9 @@ public class NodeTest {
      */
     @Test
     public void testGetCount() {
-        System.out.println("getCount");
-        Node instance = null;
-        int expResult = 0;
-        int result = instance.getCount();
+        int expResult = 6;
+        int result = root.getCount();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -68,13 +65,9 @@ public class NodeTest {
      */
     @Test
     public void testGetCode() {
-        System.out.println("getCode");
-        Node instance = null;
-        byte expResult = 0;
-        byte result = instance.getCode();
+        byte expResult = (byte) 'f';
+        byte result = node1.getCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -82,13 +75,9 @@ public class NodeTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
-        Node instance = null;
-        String expResult = "";
-        String result = instance.toString();
+        String expResult = "Node[6|0, Node[4|102, null, null], Node[2|117, null, null]]";
+        String result = root.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -96,13 +85,16 @@ public class NodeTest {
      */
     @Test
     public void testCompareTo() {
-        System.out.println("compareTo");
-        Object t = null;
-        Node instance = null;
-        int expResult = 0;
-        int result = instance.compareTo(t);
+        int expResult = 1;
+        int result = node1.compareTo(node2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        expResult = -1;
+        result = node2.compareTo(node1);
+        assertEquals(expResult, result);
+
+        expResult = 0;
+        result = node1.compareTo(node1);
+        assertEquals(expResult, result);
     }
 }
