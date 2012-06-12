@@ -1,6 +1,7 @@
 package huffman;
 
 import java.util.TreeMap;
+import tietorakenteet.Hakupuu;
 import tietorakenteet.MinimiKeko;
 import tietorakenteet.HuffmanNode;
 
@@ -11,7 +12,7 @@ import tietorakenteet.HuffmanNode;
 public class Huffmankoodi {
 
     private byte[] tavut;
-    private TreeMap<Byte, Integer> byteCount = new TreeMap<Byte, Integer>();
+    private Hakupuu byteCount = new Hakupuu();
     private MinimiKeko aakkosto = new MinimiKeko(256);
 
     /**
@@ -43,11 +44,12 @@ public class Huffmankoodi {
      * @param byteCount metodi saa parametrina merkkien määrät
      * @return palauttaa Huffman-puun juuren
      */
-    public HuffmanNode Huffman(TreeMap<Byte, Integer> byteCount) {
+    public HuffmanNode Huffman(Hakupuu byteCount) {
         long currentTimeMillis = System.currentTimeMillis();
         //Luo puut
         for (byte i : byteCount.keySet()) {
-            HuffmanNode a = new HuffmanNode(byteCount.get(i), i);
+            int count = Integer.parseInt((String)byteCount.getNode(i).getValue());
+            HuffmanNode a = new HuffmanNode(count, i);
             aakkosto.add(a);
         }
 
@@ -68,7 +70,7 @@ public class Huffmankoodi {
      * Metodi palauttaa merkkien määrät
      * @return 
      */
-    public TreeMap<Byte, Integer> getByteCount() {
+    public Hakupuu getByteCount() {
         return byteCount;
     }
 
@@ -79,8 +81,8 @@ public class Huffmankoodi {
         long currentTimeMillis = System.currentTimeMillis();
         
         for (Byte i : tavut) {
-            if (byteCount.containsKey(i)) {
-                byteCount.put(i, byteCount.get(i) + 1);
+            if (byteCount.getNode(i) != null) {
+                byteCount.getNode(i).setValue(Integer.parseInt((String)byteCount.getNode(i).getValue())+1);
             } else {
                 byteCount.put(i, 1);
             }

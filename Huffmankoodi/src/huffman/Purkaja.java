@@ -2,9 +2,9 @@ package huffman;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tietorakenteet.Hakupuu;
 import tietorakenteet.HuffmanNode;
 
 /**
@@ -16,7 +16,7 @@ public class Purkaja {
 
     private FileInputStream fileStream;
     private DataInputStream dataStream;
-    private TreeMap<Byte, Integer> byteCount = new TreeMap<Byte, Integer>();
+    private Hakupuu byteCount = new Hakupuu();
     private HuffmanNode HuffmanTree;
     private ArrayList<Byte> purettu = new ArrayList<Byte>();
 

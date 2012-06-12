@@ -1,9 +1,9 @@
 package huffman;
 
 import java.io.*;
-import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tietorakenteet.Hakupuu;
 
 /**
  * Luokka tallentaa pakatun tiedoston
@@ -11,8 +11,8 @@ import java.util.logging.Logger;
  */
 public class Tallennus {
 
-    private TreeMap sanakirja;
-    private TreeMap<Byte, Integer> byteCount;
+    private Hakupuu sanakirja;
+    private Hakupuu byteCount;
     private byte[] tavut;
     private String buffer = "";
     private File tiedosto;
@@ -26,7 +26,7 @@ public class Tallennus {
      * @param bytecount merkkien määrät
      * @param fileName tiedostonimi johon pakataan
      */
-    public Tallennus(byte[] tavut, TreeMap sanakirja, TreeMap bytecount, String fileName) {
+    public Tallennus(byte[] tavut, Hakupuu sanakirja, Hakupuu bytecount, String fileName) {
         this.tavut = tavut;
         this.sanakirja = sanakirja;
         this.byteCount = bytecount;
@@ -55,7 +55,7 @@ public class Tallennus {
 
         for (byte i : byteCount.keySet()) {
             dataStream.write(i);                    // kirjoittaa merkin
-            dataStream.writeInt(byteCount.get(i));  // kirjoittaa merkin määrän
+            dataStream.writeInt(Integer.parseInt((String)byteCount.getNode(i).getValue()));  // kirjoittaa merkin määrän
         }
     }
     /**
@@ -67,7 +67,7 @@ public class Tallennus {
         
         tavut[tavut.length-1] = (byte)-128;
         for (byte i : tavut) {
-            buffer = buffer + sanakirja.get(i);
+            buffer = buffer + sanakirja.getNode(i).getValue();
             while (buffer.length() > 7) {
                 byte kirjoita = (byte) Integer.parseInt(buffer.substring(0, 8), 2);
                 dataStream.write(kirjoita);

@@ -1,23 +1,29 @@
 package tietorakenteet;
 
+import java.util.ArrayList;
+
 public class Hakupuu {
 
-    private static Node root;
+    private static Node root = null;
+    private static ArrayList<Byte> lista;
+    private int koko = 0;
 
     public Hakupuu() {
     }
 
-    public Object containsKey(byte key) {
-
-        if (root.getKey() == key) {
+    public Node getNode(byte key) {
+        
+        if (root == null){
+            return null;
+        } else if (root.getKey() == key) {
             return root;
         } else {
             return haku(root, key);
         }
     }
 
-    public static Object haku(Node root, int key) {
-        Object apu = null;
+    public static Node haku(Node root, int key) {
+        Node apu = null;
 
         if (root.getKey() < key) {
             if (root.getRight() != null) {
@@ -30,7 +36,7 @@ public class Hakupuu {
             }
 
         } else if (root.getKey() == key) {
-            apu = root.getValue();
+            apu = root;
         }
         return apu;
     }
@@ -76,10 +82,14 @@ public class Hakupuu {
     }
 
     public void put(byte key, Object value) {
+        koko = koko+1;
+        
         Node uusi = lisaa(key, value);
         Node p = uusi.getParent();
         Node alipuu;
         while (p != null){
+            
+            
             if (p.getLeft().getHeight() == p.getRight().getHeight()+2) {
                 Node vanhempi = p.getParent();
                 if(p.getLeft().getLeft().getHeight() > p.getLeft().getRight().getHeight()){
@@ -149,25 +159,43 @@ public class Hakupuu {
         }
         return uusi;
     }
-
-    public static Node hae(Node root, int key) {
-
-        Node apu = null;
-
-        if (root.getKey() < key) {
-            if (root.getRight().getKey() < key) {
-                return hae(root.getRight(), key);
-            } else {
-                return apu;
-            }
-        } else if (root.getKey() > key) {
-            if (root.getLeft().getKey() > key) {
-                return hae(root.getRight(), key);
-            } else {
-                return apu;
-            }
-        }
-        return apu;
-
+    
+    public ArrayList<Byte> keySet(){
+        lista = new ArrayList<Byte>();
+        alkiot(root);
+        return lista;
     }
+    
+    private void alkiot(Node root){
+        if (root != null){
+            alkiot(root.getLeft());
+            lista.add(root.getKey());
+            alkiot(root.getRight());                    
+        }
+    }
+    
+    public int size(){
+        return koko;
+    }
+
+//    public static Node hae(Node root, int key) {
+//
+//        Node apu = null;
+//
+//        if (root.getKey() < key) {
+//            if (root.getRight().getKey() < key) {
+//                return hae(root.getRight(), key);
+//            } else {
+//                return apu;
+//            }
+//        } else if (root.getKey() > key) {
+//            if (root.getLeft().getKey() > key) {
+//                return hae(root.getRight(), key);
+//            } else {
+//                return apu;
+//            }
+//        }
+//        return apu;
+//
+//    }
 }
