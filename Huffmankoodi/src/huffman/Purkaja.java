@@ -16,7 +16,7 @@ public class Purkaja {
 
     private FileInputStream fileStream;
     private DataInputStream dataStream;
-    private Hakupuu byteCount = new Hakupuu();
+    private Hakupuu<Integer> byteCount = new Hakupuu();
     private HuffmanNode HuffmanTree;
     private ArrayList<Byte> purettu = new ArrayList<Byte>();
 
@@ -53,10 +53,11 @@ public class Purkaja {
     private void loadTree() throws IOException {
 
         int count = dataStream.readInt();
+        System.out.println("määrä: " + count);
         for (int i = 0; i < count; i++) {
             byte tavu = (byte) dataStream.read();
             int lkm = dataStream.readInt();
-
+            System.out.println("merkit: " + tavu + " - " + lkm);
             byteCount.put(tavu, lkm);
         }
         Huffmankoodi treeBuilder = new Huffmankoodi();
@@ -71,6 +72,7 @@ public class Purkaja {
     private void loadFile() throws IOException {
         String buffer = "";
         HuffmanNode search = HuffmanTree;
+        System.out.println(HuffmanTree);
 
         outerloop:
         while (true) {
@@ -78,16 +80,16 @@ public class Purkaja {
             if (!buffer.isEmpty() && buffer.charAt(0) == '0' && search.getRight() != null) {
                 search = search.getRight();
                 buffer = buffer.substring(1);
-//                System.out.print("R ");
+                System.out.print("R ");
             }
             if (!buffer.isEmpty() && buffer.charAt(0) == '1' && search.getLeft() != null) {
                 search = search.getLeft();
                 buffer = buffer.substring(1);
-//                System.out.print("L ");
+                System.out.print("L ");
             }
 
             if (search.getLeft() == null && search.getRight() == null) {
-//                System.out.println("lehti: " + (char)search.getCode());
+                System.out.println("lehti: " + (char)search.getCode());
                 if (search.getCode() == (byte) -128) {
                     break outerloop;
                 }

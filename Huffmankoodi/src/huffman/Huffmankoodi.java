@@ -1,9 +1,9 @@
 package huffman;
 
-import java.util.TreeMap;
+import java.util.ArrayList;
 import tietorakenteet.Hakupuu;
-import tietorakenteet.MinimiKeko;
 import tietorakenteet.HuffmanNode;
+import tietorakenteet.MinimiKeko;
 
 /**
  * Luokka toteuttaa Huffman puun muodostamisen
@@ -12,7 +12,7 @@ import tietorakenteet.HuffmanNode;
 public class Huffmankoodi {
 
     private byte[] tavut;
-    private Hakupuu byteCount = new Hakupuu();
+    private Hakupuu<Integer> byteCount = new Hakupuu<Integer>();
     private MinimiKeko aakkosto = new MinimiKeko(256);
 
     /**
@@ -47,8 +47,11 @@ public class Huffmankoodi {
     public HuffmanNode Huffman(Hakupuu byteCount) {
         long currentTimeMillis = System.currentTimeMillis();
         //Luo puut
-        for (byte i : byteCount.keySet()) {
-            int count = Integer.parseInt((String)byteCount.getNode(i).getValue());
+        
+        ArrayList<Byte> list = byteCount.keySet();
+        System.out.println(list);
+        for (byte i : list) {
+            int count = (Integer)byteCount.getNode(i).getValue();
             HuffmanNode a = new HuffmanNode(count, i);
             aakkosto.add(a);
         }
@@ -82,7 +85,8 @@ public class Huffmankoodi {
         
         for (Byte i : tavut) {
             if (byteCount.getNode(i) != null) {
-                byteCount.getNode(i).setValue(Integer.parseInt((String)byteCount.getNode(i).getValue())+1);
+                int k = (Integer)byteCount.getNode(i).getValue();
+                byteCount.getNode(i).setValue(k + 1);
             } else {
                 byteCount.put(i, 1);
             }

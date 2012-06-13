@@ -2,18 +2,18 @@ package tietorakenteet;
 
 import java.util.ArrayList;
 
-public class Hakupuu {
+public class Hakupuu<T> {
 
-    private static Node root = null;
-    private static ArrayList<Byte> lista;
-    private int koko = 0;
+    private Node<T> root = null;
+    private ArrayList<Byte> lista;
+    private int koko = -1;
 
     public Hakupuu() {
     }
 
     public Node getNode(byte key) {
-        
-        if (root == null){
+
+        if (root == null) {
             return null;
         } else if (root.getKey() == key) {
             return root;
@@ -22,8 +22,8 @@ public class Hakupuu {
         }
     }
 
-    public static Node haku(Node root, int key) {
-        Node apu = null;
+    public Node haku(Node<T> root, byte key) {
+        Node<T> apu = null;
 
         if (root.getKey() < key) {
             if (root.getRight() != null) {
@@ -41,8 +41,8 @@ public class Hakupuu {
         return apu;
     }
 
-    private static Node RightRotate(Node k1) {
-        Node k2 = k1.getLeft();
+    private Node<T> RightRotate(Node<T> k1) {
+        Node<T> k2 = k1.getLeft();
         k2.setParent(k1.getParent());
         k1.setParent(k2);
         k1.setLeft(k2.getRight());
@@ -55,8 +55,8 @@ public class Hakupuu {
         return k2;
     }
 
-    private static Node LeftRotate(Node k1) {
-        Node k2 = k1.getRight();
+    private Node<T> LeftRotate(Node<T> k1) {
+        Node<T> k2 = k1.getRight();
         k2.setParent(k1.getParent());
         k1.setParent(k2);
         k1.setRight(k2.getLeft());
@@ -69,89 +69,101 @@ public class Hakupuu {
         return k2;
     }
 
-    private static Node RightLeftRotate(Node k1) {
-        Node k2 = k1.getRight();
+    private Node<T> RightLeftRotate(Node<T> k1) {
+        Node<T> k2 = k1.getRight();
         k1.setRight(RightRotate(k2));
         return LeftRotate(k1);
     }
 
-    private static Node LeftRightRotate(Node k1) {
-        Node k2 = k1.getLeft();
+    private Node<T> LeftRightRotate(Node<T> k1) {
+        Node<T> k2 = k1.getLeft();
         k1.setLeft(LeftRotate(k2));
         return LeftRotate(k1);
     }
 
-    public void put(byte key, Object value) {
-        koko = koko+1;
-        
-        Node uusi = lisaa(key, value);
-        Node p = uusi.getParent();
-        Node alipuu;
-        while (p != null){
-            
-            
-            if (p.getLeft().getHeight() == p.getRight().getHeight()+2) {
-                Node vanhempi = p.getParent();
-                if(p.getLeft().getLeft().getHeight() > p.getLeft().getRight().getHeight()){
+    public void put(byte key, T value) {
+        koko = koko + 1;
+
+        Node<T> uusi = lisaa(key, value);
+        Node<T> p = uusi.getParent();
+        Node<T> alipuu;
+        while (p != null) {
+
+            if (p == null || p.getLeft() == null || p.getRight() == null) {
+                return;
+            }
+
+            if (p.getLeft().getHeight() == p.getRight().getHeight() + 2) {
+                Node<T> vanhempi = p.getParent();
+
+                if (p == null || p.getLeft().getLeft() == null || p.getLeft().getRight() == null) {
+                    return;
+                }
+
+                if (p.getLeft().getLeft().getHeight() > p.getLeft().getRight().getHeight()) {
                     alipuu = RightRotate(p);
                 } else {
                     alipuu = LeftRightRotate(p);
                 }
-                if(vanhempi == null){
+                if (vanhempi == null) {
                     root = alipuu;
-                } else if(vanhempi.getLeft() == p){
+                } else if (vanhempi.getLeft() == p) {
                     vanhempi.setLeft(alipuu);
                 } else {
                     vanhempi.setRight(alipuu);
                 }
-                if(vanhempi != null){
-                    vanhempi.setHeight(Math.max(vanhempi.getLeft().getHeight(), vanhempi.getRight().getHeight())+1);
+                if (vanhempi != null) {
+                    vanhempi.setHeight(Math.max(vanhempi.getLeft().getHeight(), vanhempi.getRight().getHeight()) + 1);
                 }
                 return;
             }
-            
-            if (p.getRight().getHeight() == p.getLeft().getHeight()+2) {
-                Node vanhempi = p.getParent();
-                if(p.getRight().getRight().getHeight() > p.getRight().getLeft().getHeight()){
+
+            if (p.getRight().getHeight() == p.getLeft().getHeight() + 2) {
+                Node<T> vanhempi = p.getParent();
+
+                if (p == null || p.getRight().getRight() == null || p.getRight().getLeft() == null) {
+                    return;
+                }
+
+                if (p.getRight().getRight().getHeight() > p.getRight().getLeft().getHeight()) {
                     alipuu = LeftRotate(p);
                 } else {
                     alipuu = RightLeftRotate(p);
                 }
-                if(vanhempi == null){
+                if (vanhempi == null) {
                     root = alipuu;
-                } else if(vanhempi.getLeft() == p){
+                } else if (vanhempi.getLeft() == p) {
                     vanhempi.setLeft(alipuu);
                 } else {
                     vanhempi.setRight(alipuu);
                 }
-                if(vanhempi != null){
-                    vanhempi.setHeight(Math.max(vanhempi.getLeft().getHeight(), vanhempi.getRight().getHeight())+1);
+                if (vanhempi != null) {
+                    vanhempi.setHeight(Math.max(vanhempi.getLeft().getHeight(), vanhempi.getRight().getHeight()) + 1);
                 }
                 return;
             }
-            p.setHeight(Math.max(p.getLeft().getHeight(), p.getRight().getHeight())+1);
+
+            p.setHeight(Math.max(p.getLeft().getHeight(), p.getRight().getHeight()) + 1);
             p = p.getParent();
-            
-            
         }
     }
 
-    private static Node lisaa(byte key, Object value) {
-        Node uusi = new Node(key, value);
+    private Node<T> lisaa(byte key, Object value) {
+        Node<T> uusi = new Node(key, value);
         if (root == null) {
             root = uusi;
             return root;
         }
-        Node x = root;
+        Node<T> x = root;
         while (x != null) {
-            Node p = x;
-            if (uusi.getKey() < x.getKey()) {
+            Node<T> p = x;
+            if ((int) uusi.getKey() < (int) x.getKey()) {
                 x = x.getLeft();
             } else {
                 x = x.getRight();
             }
             uusi.setParent(p);
-            if (uusi.getKey() < p.getKey()) {
+            if ((int) uusi.getKey() < (int) p.getKey()) {
                 p.setLeft(uusi);
             } else {
                 p.setRight(uusi);
@@ -159,25 +171,24 @@ public class Hakupuu {
         }
         return uusi;
     }
-    
-    public ArrayList<Byte> keySet(){
+
+    public ArrayList<Byte> keySet() {
         lista = new ArrayList<Byte>();
         alkiot(root);
         return lista;
     }
-    
-    private void alkiot(Node root){
-        if (root != null){
+
+    private void alkiot(Node<T> root) {
+        if (root != null) {
             alkiot(root.getLeft());
-            lista.add(root.getKey());
-            alkiot(root.getRight());                    
+            lista.add((byte) root.getKey());
+            alkiot(root.getRight());
         }
     }
-    
-    public int size(){
+
+    public int size() {
         return koko;
     }
-
 //    public static Node hae(Node root, int key) {
 //
 //        Node apu = null;

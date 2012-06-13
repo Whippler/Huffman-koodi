@@ -1,22 +1,22 @@
 package tietorakenteet;
 
-public class Node {
+public class Node<T> implements Comparable {
 
-    private Node left; 
-    private Node right;
-    private Node parent;
-    private int height;
-    private byte key;   
-    private Object value; 
+    private Node left = null;
+    private Node right = null;
+    private Node parent = null;
+    private int height = 1;
+    private byte key;
+    private T value;
 
-    public Node(byte key, Object value, Node left, Node right) {
+    public Node(byte key, T value, Node left, Node right) {
         this.key = key;
         this.value = value;
         this.left = left;
         this.right = right;
     }
 
-    public Node(byte key, Object value) {
+    public Node(byte key, T value) {
         this.key = key;
         this.value = value;
         // left ja right ovat null
@@ -37,28 +37,28 @@ public class Node {
     public Node getRight() {
         return right;
     }
-    
-    public void setParent(Node parent){
+
+    public void setParent(Node parent) {
         this.parent = parent;
     }
-    
-    public Node getParent(){
+
+    public Node getParent() {
         return parent;
     }
 
-    public Object getValue() {
+    public T getValue() {
         return value;
     }
-    
-    public int getHeight(){
+
+    public int getHeight() {
         return height;
     }
-    
-    public void setHeight(int korkeus){
+
+    public void setHeight(int korkeus) {
         this.height = korkeus;
     }
 
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value = value;
     }
 
@@ -68,18 +68,30 @@ public class Node {
 
     public String toString() {
         String l, r;
-        
-        if (left == null)
+
+        if (left == null) {
             l = "null";
-        else
+        } else {
             l = left.toString();
+        }
 
-        if (right == null)
+        if (right == null) {
             r = "null";
-        else
+        } else {
             r = right.toString();
+        }
 
-        return "Node["+key+","+value+", "+l+", "+r+"]";
+        return "Node[" + key + "," + value + ", " + l + ", " + r + "]";
     }
 
+    @Override
+    public int compareTo(Object t) {
+        if ((int)this.key < (int)((Node) t).key) {
+            return -1;
+        } else if ((int)this.key > (int)((Node) t).key) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

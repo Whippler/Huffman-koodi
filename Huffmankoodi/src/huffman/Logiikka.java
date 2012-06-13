@@ -15,14 +15,14 @@ import tietorakenteet.HuffmanNode;
  */
 public class Logiikka {
 
-    private static Hakupuu sanakirja = new Hakupuu();
+    private static Hakupuu<String> sanakirja = new Hakupuu();
     private static String syote;
     private static String kohde;
 
     public static void main(String[] args) {
         args = new String[2];              //Testausta varten
         args[0] = "Holmes.txt";
-        args[1] = "holmesPakattu.dat";
+        args[1] = "TestiPakattu.dat";
 
         if (args.length == 2) {
 
@@ -56,6 +56,7 @@ public class Logiikka {
         byte[] tavut = lukija.getTavut();
         Huffmankoodi huffman = new Huffmankoodi(tavut);
         HuffmanNode huffmanTree = huffman.Huffman();
+        System.out.println(huffmanTree);
         sanakirja(huffmanTree, "");
 
 
