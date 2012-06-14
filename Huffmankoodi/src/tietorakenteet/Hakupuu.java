@@ -112,7 +112,7 @@ public class Hakupuu<T> {
                 } else {
                     vanhempi.setRight(alipuu);
                 }
-                if (vanhempi != null) {
+                if (vanhempi != null && vanhempi.getRight()!=null && vanhempi.getLeft()!=null) {
                     vanhempi.setHeight(Math.max(vanhempi.getLeft().getHeight(), vanhempi.getRight().getHeight()) + 1);
                 }
                 return;
@@ -150,24 +150,28 @@ public class Hakupuu<T> {
 
     private Node<T> lisaa(byte key, Object value) {
         Node<T> uusi = new Node(key, value);
+        Node<T> p = null;
+
         if (root == null) {
             root = uusi;
             return root;
         }
+
         Node<T> x = root;
+
         while (x != null) {
-            Node<T> p = x;
+            p = x;
             if ((int) uusi.getKey() < (int) x.getKey()) {
                 x = x.getLeft();
             } else {
                 x = x.getRight();
             }
-            uusi.setParent(p);
-            if ((int) uusi.getKey() < (int) p.getKey()) {
-                p.setLeft(uusi);
-            } else {
-                p.setRight(uusi);
-            }
+        }
+        uusi.setParent(p);
+        if ((int) uusi.getKey() < (int) p.getKey()) {
+            p.setLeft(uusi);
+        } else {
+            p.setRight(uusi);
         }
         return uusi;
     }

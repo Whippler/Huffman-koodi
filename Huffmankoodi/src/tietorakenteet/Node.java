@@ -5,7 +5,7 @@ public class Node<T> implements Comparable {
     private Node left = null;
     private Node right = null;
     private Node parent = null;
-    private int height = 1;
+    private int height = 0;
     private byte key;
     private T value;
 
@@ -51,6 +51,7 @@ public class Node<T> implements Comparable {
     }
 
     public int getHeight() {
+        if (this.parent == null) return -1;
         return height;
     }
 

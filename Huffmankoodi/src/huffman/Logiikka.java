@@ -21,7 +21,7 @@ public class Logiikka {
 
     public static void main(String[] args) {
         args = new String[2];              //Testausta varten
-        args[0] = "Holmes.txt";
+        args[0] = "Testi.txt";
         args[1] = "TestiPakattu.dat";
 
         if (args.length == 2) {
