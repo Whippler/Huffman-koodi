@@ -6,7 +6,12 @@ public class Hakupuu<T> {
 
     private Node<T> root = null;
     private ArrayList<Byte> lista;
-    private int koko = -1;
+    private int pVasen;
+    private int pOikea;
+    private int pVasenVasen;
+    private int pOikeaVasen;
+    private int pVasenOikea;
+    private int pOikeaOikea;
 
     public Hakupuu() {
     }
@@ -82,35 +87,24 @@ public class Hakupuu<T> {
     }
 
     public void put(byte key, T value) {
-        koko = koko + 1;
 
         Node<T> uusi = lisaa(key, value);
         Node<T> p = uusi.getParent();
-        p.setHeight(p.getHeight()+1);
+        if (p == null) {
+            return;
+        }
+
+        alustaKorkeudet(p);
+
         Node<T> alipuu;
         while (p != null) {
 
-            int pVasen;
-            int pOikea; 
-            int pVasenVasen;
-            int pOikeaVasen;
-            int pVasenOikea;
-            int pOikeaOikea;
-            
-            if (p.getLeft() == null) {
-                pVasen = 0;
-            } else {
-                pVasen = p.getLeft().getHeight();
-            }
-            
             if (pVasen == (pOikea + 2)) {
+
                 Node<T> vanhempi = p.getParent();
 
-                if (p == null || p.getLeft().getLeft() == null || p.getLeft().getRight() == null) {
-                    return;
-                }
 
-                if (p.getLeft().getLeft().getHeight() > p.getLeft().getRight().getHeight()) {
+                if (pVasenVasen > pVasenOikea) {
                     alipuu = RightRotate(p);
                 } else {
                     alipuu = LeftRightRotate(p);
@@ -122,20 +116,16 @@ public class Hakupuu<T> {
                 } else {
                     vanhempi.setRight(alipuu);
                 }
-                if (vanhempi != null && vanhempi.getRight()!=null && vanhempi.getLeft()!=null) {
+                if (vanhempi != null && vanhempi.getRight() != null && vanhempi.getLeft() != null) {
                     vanhempi.setHeight(Math.max(vanhempi.getLeft().getHeight(), vanhempi.getRight().getHeight()) + 1);
                 }
                 return;
             }
 
-            if (p.getRight().getHeight() == p.getLeft().getHeight() + 2) {
+            if (pOikea == pVasen + 2) {
                 Node<T> vanhempi = p.getParent();
 
-                if (p == null || p.getRight().getRight() == null || p.getRight().getLeft() == null) {
-                    return;
-                }
-
-                if (p.getRight().getRight().getHeight() > p.getRight().getLeft().getHeight()) {
+                if (pOikeaOikea > pVasen) {
                     alipuu = LeftRotate(p);
                 } else {
                     alipuu = RightLeftRotate(p);
@@ -153,7 +143,7 @@ public class Hakupuu<T> {
                 return;
             }
 
-            p.setHeight(Math.max(p.getLeft().getHeight(), p.getRight().getHeight()) + 1);
+            p.setHeight(Math.max(pVasen, pOikea) + 1);
             p = p.getParent();
         }
     }
@@ -177,13 +167,62 @@ public class Hakupuu<T> {
                 x = x.getRight();
             }
         }
+
         uusi.setParent(p);
+
         if ((int) uusi.getKey() < (int) p.getKey()) {
             p.setLeft(uusi);
         } else {
             p.setRight(uusi);
         }
+
         return uusi;
+    }
+
+    private void alustaKorkeudet(Node<T> p) {
+
+        if (p.getLeft() == null) {
+            pVasen = -1;
+        } else {
+            pVasen = p.getLeft().getHeight();
+        }
+        if (p.getLeft() != null) {
+            if (p.getLeft().getLeft() == null) {
+                pVasenVasen = -1;
+            } else {
+                pVasenVasen = p.getLeft().getHeight();
+            }
+        }
+
+        if (p.getRight() == null) {
+            pOikea = -1;
+        } else {
+            pOikea = p.getRight().getHeight();
+        }
+
+        if (p.getRight() != null) {
+            if (p.getRight().getRight() == null) {
+                pOikeaOikea = -1;
+            } else {
+                pOikeaOikea = p.getLeft().getHeight();
+            }
+        }
+
+        if(p.getRight()!=null){
+        if (p.getRight().getLeft() == null) {
+            pOikeaVasen = -1;
+        } else {
+            pOikeaVasen = p.getLeft().getHeight();
+        }
+        }
+
+        if (p.getLeft() != null) {
+            if (p.getLeft().getRight() == null) {
+                pVasenOikea = -1;
+            } else {
+                pVasenOikea = p.getLeft().getHeight();
+            }
+        }
     }
 
     public ArrayList<Byte> keySet() {
@@ -199,10 +238,7 @@ public class Hakupuu<T> {
             alkiot(root.getRight());
         }
     }
-
-    public int size() {
-        return koko;
-    }
+}
 //    public static Node hae(Node root, int key) {
 //
 //        Node apu = null;
@@ -223,4 +259,3 @@ public class Hakupuu<T> {
 //        return apu;
 //
 //    }
-}

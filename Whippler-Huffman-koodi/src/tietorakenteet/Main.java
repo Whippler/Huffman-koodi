@@ -13,12 +13,11 @@ public class Main {
     public static void main(String[] args) {
         Hakupuu<Integer> puu = new Hakupuu();
         puu.put((byte) 10, 5);
-        puu.put((byte) 15, 10);
-        puu.put((byte) 20, 15);
-        puu.put((byte) 25, 20);
-        puu.put((byte) 10, 5);
-        puu.put((byte) 0, -5);
-
         System.out.println(puu.keySet());
+        puu.put((byte) 15, 10);
+        System.out.println(puu.keySet());
+        puu.put((byte) 8, 15);
+        System.out.println(puu.keySet());
+
     }
 }

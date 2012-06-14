@@ -51,7 +51,6 @@ public class Node<T> implements Comparable {
     }
 
     public int getHeight() {
-        if (this.parent == null) return -1;
         return height;
     }
 
